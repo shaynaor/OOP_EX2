@@ -37,10 +37,10 @@ public class MyCoords implements coords_converter {
 		MyCoords cord = new MyCoords();
 
 		// ** calculation azimuth **
-		double longitude1 = gps1.y();
-		double longitude2 = gps0.y();
-		double latitude1 = Math.toRadians(gps1.x());
-		double latitude2 = Math.toRadians(gps0.x());
+		double longitude1 = gps0.y();
+		double longitude2 = gps1.y();
+		double latitude1 = Math.toRadians(gps0.x());
+		double latitude2 = Math.toRadians(gps1.x());
 		double longDiff = Math.toRadians(longitude2 - longitude1);
 		double y = Math.sin(longDiff) * Math.cos(latitude2);
 		double x = Math.cos(latitude1) * Math.sin(latitude2)
@@ -51,8 +51,9 @@ public class MyCoords implements coords_converter {
 		distance = cord.distance3d(gps0, gps1);
 
 		// ** calculating elevation**
-		h = gps0.z() - gps1.z();
-		double temp = Math.sin(h / distance);
+		h = gps1.z() - gps0.z();
+		
+		double temp = Math.asin(h / distance);
 		elevation = Math.toDegrees(temp);
 
 		ans[0] = azimuth;
