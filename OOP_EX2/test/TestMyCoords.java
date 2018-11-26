@@ -51,34 +51,45 @@ class TestMyCoords {
 			}
 		}
 	}
-           @Test
-           /** 
-            * testing distance function with two known distances and comparing them to the result.
-            */
-           void Distance() {
-        		Point3D p1 = new Point3D(32.332,35,20);
-    			Point3D p2 = new Point3D(32.33,35,20);
-    			MyCoords distance = new MyCoords();
-    			double dp1p2 = 222;
-    			double checkd = distance.distance3d(p1, p2);
-    			double delta = dp1p2-checkd;
-    			if(delta>1||delta<-1) {
-    				fail("Moved to much or to liltle");
-    			}
-    			
-    			Point3D p3 = new Point3D(32.85,35.6,20);
-    			Point3D p4 = new Point3D(32.85,35.55,20);
-    			
-    			double dp3p4 = 4671;
-    			 checkd = distance.distance3d(p3, p4);
-    			 delta = dp3p4-checkd;
-    			if(delta>10||delta<-10) {
-    				fail("Moved to much or to liltle");
-    			}
- 
-           }
-           
-           
+	@Test
+	/** 
+	 * testing distance function with two known distances and comparing them to the result.
+	 */
+	void Distance() {
+		Point3D p1 = new Point3D(32.332,35,20);
+		Point3D p2 = new Point3D(32.33,35,20);
+		MyCoords distance = new MyCoords();
+		double dp1p2 = 222;
+		double checkd = distance.distance3d(p1, p2);
+		double delta = dp1p2-checkd;
+		if(delta>1||delta<-1) {
+			fail("Moved to much or to liltle");
+		}
+
+		Point3D p3 = new Point3D(32.85,35.6,20);
+		Point3D p4 = new Point3D(32.85,35.55,20);
+
+		double dp3p4 = 4671;
+		checkd = distance.distance3d(p3, p4);
+		delta = dp3p4-checkd;
+		if(delta>10||delta<-10) {
+			fail("Moved to much or to liltle");
+		}
+
+	}
+	@Test
+	void elevation_azimuth() {
+		Point3D p1 = new Point3D(32.10332,35.20904,670);
+		Point3D p2 = new Point3D(32.10635,35.20523,650);
+		MyCoords azi = new MyCoords();
+		double [] ans;
+		ans = azi.azimuth_elevation_dist(p1, p2);
+		double elevation =ans[1];
+		double azimuth = ans[0];
+
+
+		fail("Moved to much or to liltle");
+	}
 
 
 
