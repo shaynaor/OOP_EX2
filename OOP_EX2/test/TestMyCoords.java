@@ -78,6 +78,9 @@ class TestMyCoords {
 
 	}
 	@Test
+	/**
+	 * testing to see if function  return currect azimuth and elevation compared to known result.
+	 */
 	void elevation_azimuth() {
 		Point3D p1 = new Point3D(32.10332,35.20904,670);
 		Point3D p2 = new Point3D(32.10635,35.20523,650);
@@ -86,9 +89,17 @@ class TestMyCoords {
 		ans = azi.azimuth_elevation_dist(p1, p2);
 		double elevation =ans[1];
 		double azimuth = ans[0];
+		double curectELE = -2.3;
+		double curectAZI = 313;
+		double deltaELE = elevation-curectELE;
+		double deltaAZI = azimuth-curectAZI;
+
+		if(deltaELE>1||deltaELE<-1||deltaAZI>1||deltaAZI<-1) {
+			fail("to big of an error");
+		}
 
 
-		fail("Moved to much or to liltle");
+
 	}
 
 
