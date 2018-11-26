@@ -32,8 +32,33 @@ public class MyCoords implements coords_converter {
 	}
 
 	public double[] azimuth_elevation_dist(Point3D gps0, Point3D gps1) {
+		double azimuth, elevation, distance, h;
+		double ans[] = { 0, 0, 0 };
+		MyCoords cord = new MyCoords();
 
-		return null;
+		// ** calculation azimuth **
+		double longitude1 = gps1.y();
+		double longitude2 = gps0.y();
+		double latitude1 = Math.toRadians(gps1.x());
+		double latitude2 = Math.toRadians(gps0.x());
+		double longDiff = Math.toRadians(longitude2 - longitude1);
+		double y = Math.sin(longDiff) * Math.cos(latitude2);
+		double x = Math.cos(latitude1) * Math.sin(latitude2)
+				- Math.sin(latitude1) * Math.cos(latitude2) * Math.cos(longDiff);
+
+		azimuth = (Math.toDegrees(Math.atan2(y, x)) + 360) % 360;
+		// ** calculating distance **
+		distance = cord.distance3d(gps0, gps1);
+
+		// ** calculating elevation**
+		h = gps0.z() - gps1.z();
+		double temp = Math.sin(h / distance);
+		elevation = Math.toDegrees(temp);
+
+		ans[0] = azimuth;
+		ans[1] = elevation;
+		ans[2] = distance;
+		return ans;
 	}
 
 	public boolean isValid_GPS_Point(Point3D p) {
