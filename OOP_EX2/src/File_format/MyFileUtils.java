@@ -24,7 +24,7 @@ public class MyFileUtils {
 		br.close();
 		return container;
 	}
-
+	
 	public static void writeKMLFile(String path, ArrayList<String[]> container) throws IOException {
 		ArrayList<String> content = new ArrayList<String>();
 		String kmlstart = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
