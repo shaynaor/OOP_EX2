@@ -8,8 +8,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This class does multiple actions on files. such as: read csv file and write
+ * kml file.
+ * 
+ * @author Shay Naor and Alex Vaisman.
+ *
+ */
 public class MyFileUtils {
 
+	/**
+	 * This function recived a path to a csv file and create a ArrayList<String[]>
+	 * that contains the csv file data.
+	 * 
+	 * @param path      location of csv file.
+	 * @param startLine from which line to read.
+	 * @return ArrayList<String[]> contains the csv file data.
+	 * @throws IOException if the path is incorrect the function throws IOException.
+	 */
 	public static ArrayList<String[]> readCSVFile(String path, int startLine) throws IOException {
 		int counter = 0;
 		String line = "";
@@ -20,7 +36,7 @@ public class MyFileUtils {
 
 		while ((line = br.readLine()) != null) {
 			userInfo = line.split(cvsSplitBy);
-			if (counter >= startLine) 
+			if (counter >= startLine)
 				container.add(userInfo);
 			counter++;
 
@@ -29,6 +45,15 @@ public class MyFileUtils {
 		return container;
 	}
 
+	/**
+	 * This function recived a path and ArrayList<String[]> that contains the csv
+	 * file data and write a kml file.
+	 * 
+	 * @param path      location of kml file.
+	 * @param container contains the csv file data that we want to convert to kml
+	 *                  file.
+	 * @throws IOException if the path is incorrect the function throws IOException.
+	 */
 	public static void writeKMLFile(String path, ArrayList<String[]> container) throws IOException {
 		ArrayList<String> content = new ArrayList<String>();
 		String kmlstart = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
@@ -61,10 +86,15 @@ public class MyFileUtils {
 		bw.close();
 
 	}
+
 	/**
-	 * taken from : https://stackoverflow.com/questions/1844688/how-to-read-all-files-in-a-folder-from-java.
-	 * @param folder
-	 * @return
+	 * This function recives folder path and return a ArrayList<String> that
+	 * contains all the paths for csv files in folder. The algorithem taken from :
+	 * https://stackoverflow.com/questions/1844688/how-to-read-all-files-in-a-folder-from-java.
+	 * 
+	 * @param folder that contains the csv files.
+	 * @return ArrayList<String> that contains all the paths for csv files in
+	 *         folder.
 	 */
 	public static ArrayList<String> listFilesForFolder(final File folder) throws NullPointerException {
 		ArrayList<String> listFiles = new ArrayList<>();

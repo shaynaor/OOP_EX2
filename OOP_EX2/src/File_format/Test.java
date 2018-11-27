@@ -34,8 +34,8 @@ public class Test {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
-		
-		File f = new File("C:\\Users\\User\\Desktop\\מטלה 2 מונחה\\Ex2\\data");
-		System.out.println(MyFileUtils.listFilesForFolder(f));
+//		
+//		File f = new File("C:\\Users\\User\\Desktop\\מטלה 2 מונחה\\Ex2\\data");
+//		System.out.println(MyFileUtils.listFilesForFolder(f));
 	}
 }
