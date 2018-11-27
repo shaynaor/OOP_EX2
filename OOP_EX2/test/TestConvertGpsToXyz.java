@@ -18,7 +18,7 @@ class TestConvertGpsToXyz {
 	 * this function creates 10000 random gps points creates a copy of that point. 
 	 * * converts it to ecef and back to lla and checks if the result is the same to 0.0001 accuracy
 	 */
-	void СonvertPoints() {
+	void ConvertPoints() {
 		double lat;
 		double lon;
 		double alt;
