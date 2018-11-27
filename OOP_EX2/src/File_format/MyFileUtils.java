@@ -2,15 +2,16 @@ package File_format;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 public class MyFileUtils {
 
-	public static ArrayList<String[]> readCSVFile(String path) throws IOException {
+	public static ArrayList<String[]> readCSVFile(String path, int startLine) throws IOException {
+		int counter = 0;
 		String line = "";
 		String cvsSplitBy = ",";
 		String[] userInfo = {};
@@ -19,12 +20,15 @@ public class MyFileUtils {
 
 		while ((line = br.readLine()) != null) {
 			userInfo = line.split(cvsSplitBy);
-			container.add(userInfo);
+			if (counter >= startLine) 
+				container.add(userInfo);
+			counter++;
+
 		}
 		br.close();
 		return container;
 	}
-	
+
 	public static void writeKMLFile(String path, ArrayList<String[]> container) throws IOException {
 		ArrayList<String> content = new ArrayList<String>();
 		String kmlstart = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
@@ -35,8 +39,7 @@ public class MyFileUtils {
 				+ "</Icon></IconStyle></Style><Folder><name>Wifi Networks</name>";
 		content.add(kmlstart);
 
-		String kmlend = "</Folder>\r\n" + 
-				"</Document></kml>";
+		String kmlend = "</Folder>\r\n" + "</Document></kml>";
 
 		FileWriter fw = new FileWriter(path);
 		BufferedWriter bw = new BufferedWriter(fw);
@@ -48,15 +51,38 @@ public class MyFileUtils {
 			content.add(kmlelement);
 		}
 		content.add(kmlend);
-		
+
 		String ans = "";
-		
-		for(int i = 0 ; i < content.size() ; i++) {
+
+		for (int i = 0; i < content.size(); i++) {
 			ans += content.get(i);
 		}
 		bw.write(ans);
 		bw.close();
 
+	}
+	/**
+	 * taken from : https://stackoverflow.com/questions/1844688/how-to-read-all-files-in-a-folder-from-java.
+	 * @param folder
+	 * @return
+	 */
+	public static ArrayList<String> listFilesForFolder(final File folder) {
+		ArrayList<String> listFiles = new ArrayList<>();
+		String path = "";
+		for (final File fileEntry : folder.listFiles()) {
+			if (fileEntry.isDirectory()) {
+				listFilesForFolder(fileEntry);
+			} else {
+				if (fileEntry.isFile()) {
+					String temp = fileEntry.getName();
+					if ((temp.substring(temp.lastIndexOf('.') + 1, temp.length()).toLowerCase()).equals("csv")) {
+						path = folder.getAbsolutePath() + "\\" + fileEntry.getName();
+						listFiles.add(path);
+					}
+				}
+			}
+		}
+		return listFiles;
 	}
 
 }
