@@ -66,7 +66,7 @@ public class MyFileUtils {
 	 * @param folder
 	 * @return
 	 */
-	public static ArrayList<String> listFilesForFolder(final File folder) {
+	public static ArrayList<String> listFilesForFolder(final File folder) throws NullPointerException {
 		ArrayList<String> listFiles = new ArrayList<>();
 		String path = "";
 		for (final File fileEntry : folder.listFiles()) {
