@@ -4,89 +4,91 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class Project implements GIS_project {
+public class Project  implements GIS_project  {
 	 private HashSet<GIS_layer> project;
-	@Override
+	 
+	 
+	
 	public boolean add(GIS_layer e) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return this.project.add(e);
 	}
 
-	@Override
+	
 	public boolean addAll(Collection<? extends GIS_layer> c) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return this.project.addAll(c);
 	}
 
-	@Override
+	
 	public void clear() {
-		// TODO Auto-generated method stub
+		this.project.clear();
 		
 	}
 
-	@Override
+	
 	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return this.project.contains(o);
 	}
 
-	@Override
+	
 	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+	
+		return this.project.containsAll(c);
 	}
 
-	@Override
+	
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return this.project.isEmpty();
 	}
 
-	@Override
+	
 	public Iterator<GIS_layer> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.project.iterator();
 	}
 
-	@Override
+	
 	public boolean remove(Object o) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	
 	public boolean removeAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return this.project.removeAll(c);
 	}
 
-	@Override
+	
 	public boolean retainAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+	
+		return this.project.retainAll(c);
 	}
 
-	@Override
+	
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.project.size();
 	}
 
-	@Override
+
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.project.toArray();
 	}
 
-	@Override
+
 	public <T> T[] toArray(T[] a) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.project.toArray(a);
 	}
 
-	@Override
-	public Meta_data get_Meta_data() {
-		// TODO Auto-generated method stub
+
+	public Meta_data get_Meta_data() { ///////////////// dont forget
+	
 		return null;
 	}
 
