@@ -3,7 +3,10 @@ package Coords;
 import Geom.Point3D;
 
 public class MyCoords implements coords_converter {
-
+    /**
+     * this function receive a gps point and  point in meters. 
+     * transforms the gps point to xyz ecef and moves it by the values recived in the meters point.
+     */
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
 		Point3D p = new Point3D(ConvertGpsToXyz.lla2ecef(gps));
 		p.add(local_vector_in_meter);
@@ -11,13 +14,19 @@ public class MyCoords implements coords_converter {
 		return p;
 	}
 
+	/**
+	 * this function finds the 3d distance between 2 gps points by
+	 * converting the points into ecef .
+	 */
 	public double distance3d(Point3D gps0, Point3D gps1) {
 		Point3D p0 = new Point3D(ConvertGpsToXyz.lla2ecef(gps0));
 		Point3D p1 = new Point3D(ConvertGpsToXyz.lla2ecef(gps1));
 		double distance = p0.distance3D(p1);
 		return distance;
 	}
-
+    /**
+     * this function returns a vector between 2 gps points.
+     */
 	public Point3D vector3D(Point3D gps0, Point3D gps1) {
 		Point3D p0 = new Point3D(ConvertGpsToXyz.lla2ecef(gps0));
 		Point3D p1 = new Point3D(ConvertGpsToXyz.lla2ecef(gps1));
@@ -30,13 +39,16 @@ public class MyCoords implements coords_converter {
 
 		return p0Top1;
 	}
-
+    /**
+     * this functions calculates the azimuth , elevation and distance between 2 points.
+     * returns an array with answers.
+     */
 	public double[] azimuth_elevation_dist(Point3D gps0, Point3D gps1) {
 		double azimuth, elevation, distance, h;
 		double ans[] = { 0, 0, 0 };
 		MyCoords cord = new MyCoords();
 
-		// ** calculation azimuth **
+		// * calculation azimuth *
 		double longitude1 = gps0.y();
 		double longitude2 = gps1.y();
 		double latitude1 = Math.toRadians(gps0.x());
@@ -47,10 +59,10 @@ public class MyCoords implements coords_converter {
 				- Math.sin(latitude1) * Math.cos(latitude2) * Math.cos(longDiff);
 
 		azimuth = (Math.toDegrees(Math.atan2(y, x)) + 360) % 360;
-		// ** calculating distance **
+		// * calculating distance *
 		distance = cord.distance3d(gps0, gps1);
 
-		// ** calculating elevation**
+		// * calculating elevation*
 		h = gps1.z() - gps0.z();
 		
 		double temp = Math.asin(h / distance);
@@ -61,20 +73,19 @@ public class MyCoords implements coords_converter {
 		ans[2] = distance;
 		return ans;
 	}
-	
-	/**
-	 * 
-	 */
+  /**
+   * this function checks if the gps point is valid.
+   */
 	public boolean isValid_GPS_Point(Point3D p) {
 		if (p == null)
 			return false;
 
 		double lat = p.x(), lon = p.y(), alt = p.z();
 
-		if (lat < -90 || lat > 90)
+		if (lat < -90 && lat > 90)
 			return false;
 
-		if (lon < -180 || lon > 180)
+		if (lon < -180 && lon > 180)
 			return false;
 
 		if (alt < -450)
