@@ -89,9 +89,10 @@ public class Project  implements GIS_project  {
 	}
 
 
-	public Meta_data get_Meta_data() { ///////////////// dont forget
-	
-		return null;
+	public Meta_data get_Meta_data() {
+		Mdata time = new Mdata();
+		return time;
+		
 	}
 
 }

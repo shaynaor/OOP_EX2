@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 public class Layer implements GIS_layer {
     private HashSet<GIS_element> layer;
+    
 	
 	public Layer() {
 		this.layer = new HashSet<GIS_element>();
@@ -63,8 +64,9 @@ public class Layer implements GIS_layer {
 		return this.layer.toArray(arg0);
 	}
 
-	public Meta_data get_Meta_data() { ///////////////////// dont forget me
-		return null;
+	public Meta_data get_Meta_data() { 
+		Mdata time = new Mdata();
+		return time;
 	}
 
 
