@@ -7,7 +7,9 @@ import java.util.Iterator;
 public class Project  implements GIS_project  {
 	 private HashSet<GIS_layer> project;
 	 
-	 
+	 public Project() {
+		 this.project = new HashSet<GIS_layer>();
+	 }
 	
 	public boolean add(GIS_layer e) {
 		

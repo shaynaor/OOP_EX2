@@ -7,7 +7,9 @@ import java.util.Iterator;
 public class Layer implements GIS_layer {
     private HashSet<GIS_element> layer;
 	
-	
+	public Layer() {
+		this.layer = new HashSet<GIS_element>();
+	}
     
 	public boolean add(GIS_element arg0) {
 		return this.layer.add(arg0);

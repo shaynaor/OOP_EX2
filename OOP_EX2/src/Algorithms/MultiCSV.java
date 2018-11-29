@@ -8,6 +8,7 @@ import java.util.Arrays;
 import File_format.MyFileUtils;
 import GIS.Element;
 import GIS.Layer;
+import GIS.Project;
 
 /**
  * This class reads all the csv files from a folder and creates....
@@ -16,7 +17,7 @@ import GIS.Layer;
  *
  */
 public class MultiCSV {
-	private ArrayList<String[]> AllFileDataMatrix; // contains all the input from the csv files.
+    private ArrayList<String[]> AllFileDataMatrix; // contains all the input from the csv files.
 	private ArrayList<String[]> layer; // contains one csv file.
 
 	/**
@@ -58,22 +59,27 @@ public class MultiCSV {
 	// }
 	//
 	// }
-	public MultiCSV(String folder, String outPutPath) {
-		// ******finding path on all csv files in folder*****
+	public Project MultiCSV(String folder, String outPutPath) {
+		this.AllFileDataMatrix = new ArrayList<String[]>();
+		
+		
+		// ******finding path on all csv files in folder******
 		ArrayList<String> CSVFiles = findCsvPath(folder);
-
+        // ******creates layer for each csv file******
 		GIS.Project project = new GIS.Project();
 		for (int i = 0; i < CSVFiles.size(); i++) {
 			Layer layer = new Layer();
 			layer = readCsvToLayer(CSVFiles.get(i));
 			project.add(layer);
 		}
+		// ******Writes a kml file of the entire project******
 		try {
 			MyFileUtils.writeKMLFile(outPutPath, this.AllFileDataMatrix);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return project;
 
 	}
 
@@ -100,7 +106,7 @@ public class MultiCSV {
 		ArrayList<String[]> dataMatrix = new ArrayList<String[]>();
 		try {
 			dataMatrix = MyFileUtils.readCSVFile(path, 2);
-			this.AllFileDataMatrix.addAll(dataMatrix);
+			AllFileDataMatrix.addAll(dataMatrix);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -108,7 +114,7 @@ public class MultiCSV {
 		for (int i = 0; i < dataMatrix.size(); i++) {
 			String[] line = dataMatrix.get(i);
 			Element ele = new Element(line);
-			layer.add(ele);
+		layer.add(ele);
 		}
 		return layer;
 	}
@@ -129,9 +135,9 @@ public class MultiCSV {
 
 	public static void main(String[] args) {
        String folder ="C:\\Users\\A Beast\\Desktop\\data";
-		MultiCSV test = new MultiCSV(folder , "C:\\Users\\A Beast\\Desktop\\kml\\test.kml");
-		
-		
-		
+	   MultiCSV test = new MultiCSV();
+	   Project pro = test.MultiCSV(folder , "C:\\Users\\A Beast\\Desktop\\kml\\test.kml");
+	  
+	  
 	}
 }
