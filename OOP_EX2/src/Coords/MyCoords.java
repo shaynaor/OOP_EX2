@@ -26,7 +26,7 @@ public class MyCoords implements coords_converter {
 	 * If the gps point is invalid the function throws RuntimeException.
 	 */
 	public double distance3d(Point3D gps0, Point3D gps1) {
-		if(!isValid_GPS_Point(gps0) || !isValid_GPS_Point(gps1)) {
+		if(!isValid_GPS_Point(gps0)) {
 			System.err.println("Ivalid gps point, the values must be: "
 					+ " lat, lon , lat coordinate: [-90,+90],[-180,+180],[-450, +inf]");
 			throw new RuntimeException();

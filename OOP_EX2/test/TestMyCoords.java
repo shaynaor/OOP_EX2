@@ -41,6 +41,7 @@ class TestMyCoords {
 			Point3D gpsYmoved = add.add(gpsY, moveY);
 			double distanceX = add.distance3d(gpsX, gpsXmoved);
 			double distanceY = add.distance3d(gpsY, gpsYmoved);
+			
 
 			if (distanceX >= 1.0001 * x && x > 0.01 || distanceX <= 0.9999 * x || distanceY >= 1.0001 * y && y > 0.01) {
 				fail("Moved to much or to liltle");
@@ -122,7 +123,7 @@ class TestMyCoords {
 				fail("this is correct point shoud not fail!");
 		}
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 1000; i++) {
 			lat = ThreadLocalRandom.current().nextInt(-180, -92 + 1);
 			lon = ThreadLocalRandom.current().nextInt(-500, -182 + 1);
 			alt = ThreadLocalRandom.current().nextInt(-2000, -452 + 1);
