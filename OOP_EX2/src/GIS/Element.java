@@ -4,7 +4,12 @@ import Geom.Geom_element;
 import Geom.Point3D;
 
 public class Element implements GIS_element{
-
+ 
+	
+	
+	
+	
+	
 	public Geom_element getGeom() {
 		return null;
 	}

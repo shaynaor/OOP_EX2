@@ -14,8 +14,8 @@ import File_format.MyFileUtils;
  *
  */
 public class MultiCSV {
-	private ArrayList<String[]> dataMatrix;// contains all the input from the csv files.
-
+	private ArrayList<String[]> Project;// contains all the input from the csv files.
+    
 	/**
 	 * This Constructor recives a folder and reads the csv files in that folder and
 	 * creates a dataMatrix contains all the input from the csv files.
@@ -38,11 +38,11 @@ public class MultiCSV {
 			String CSVFile = CSVFiles.get(counter);
 			try {
 				if (counter == 0) {// if this is the first file read from the second line.
-					dataMatrix = MyFileUtils.readCSVFile(CSVFile, 1);
+					Project = MyFileUtils.readCSVFile(CSVFile, 1);
 					counter++;
 				} else {// read from the third line.
 					temp = MyFileUtils.readCSVFile(CSVFile, 2);
-					dataMatrix.addAll(temp);
+					Project.addAll(temp);
 					counter++;
 				}
 
@@ -52,7 +52,13 @@ public class MultiCSV {
 		}
 
 	}
-
+    /**
+     * Returns a line in the dataMatrix.
+     * @param dataMatrix the dataMatrix function works on
+     * @param i 
+     * @param j
+     * @return
+     */
 	public static String getData(ArrayList<String[]> dataMatrix, int i, int j) {
 		String[] str = dataMatrix.get(i);
 
@@ -62,13 +68,13 @@ public class MultiCSV {
 	public static void main(String[] args) {
 
 		MultiCSV data = new MultiCSV("C:\\\\Users\\\\User\\\\Desktop\\\\מטלה 2 מונחה\\\\Ex2\\\\data");
-		for (int i = 0; i < data.dataMatrix.size(); i++) {
-			System.out.println(Arrays.toString(data.dataMatrix.get(i)));
+		for (int i = 0; i < data.Project.size(); i++) {
+			System.out.println(Arrays.toString(data.Project.get(i)));
 
 			String path1 = "C:\\Users\\User\\Desktop\\test-IO\\shaytest.kml";
 
 			try {
-				MyFileUtils.writeKMLFile(path1, data.dataMatrix);
+				MyFileUtils.writeKMLFile(path1, data.Project);
 
 			} catch (IOException e) {
 				e.printStackTrace();
