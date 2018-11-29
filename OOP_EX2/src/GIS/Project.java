@@ -1,10 +1,11 @@
 package GIS;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 
 public class Project implements GIS_project {
-    
+	 private HashSet<GIS_layer> project;
 	@Override
 	public boolean add(GIS_layer e) {
 		// TODO Auto-generated method stub

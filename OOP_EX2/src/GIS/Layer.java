@@ -1,10 +1,13 @@
 package GIS;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 
 public class Layer implements GIS_layer {
-
+    private HashSet<GIS_element> layer;
+	
+	
 	@Override
 	public boolean add(GIS_element arg0) {
 		// TODO Auto-generated method stub
@@ -20,7 +23,7 @@ public class Layer implements GIS_layer {
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -88,6 +91,6 @@ public class Layer implements GIS_layer {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 
 }

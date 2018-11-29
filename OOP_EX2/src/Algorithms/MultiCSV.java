@@ -14,11 +14,13 @@ import File_format.MyFileUtils;
  *
  */
 public class MultiCSV {
-	private ArrayList<String[]> Project;// contains all the input from the csv files.
+	private ArrayList<String[]> Project;     // contains all the input from the csv files.
+	private ArrayList<String[]> layer;       // contains one csv file.
+	
     
 	/**
 	 * This Constructor recives a folder and reads the csv files in that folder and
-	 * creates a dataMatrix contains all the input from the csv files.
+	 * creates a Project contains all the input from the csv files.
 	 * 
 	 * @param path The folder location with the csv files.
 	 */
@@ -53,8 +55,8 @@ public class MultiCSV {
 
 	}
     /**
-     * Returns a line in the dataMatrix.
-     * @param dataMatrix the dataMatrix function works on
+     * Returns a line in the Project.
+     * @param dataMatrix the Project function works on
      * @param i 
      * @param j
      * @return
