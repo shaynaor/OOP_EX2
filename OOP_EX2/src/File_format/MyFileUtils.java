@@ -77,12 +77,21 @@ public class MyFileUtils {
 			Iterator<GIS_element> itElement = temp.iterator();
 			while (itElement.hasNext()) {
 				Element element = (Element) itElement.next();
+				String FirstSeen = element.getMetaData().getFirstSeen();
+				String time = FirstSeen.substring(0, 10);
+				String date = FirstSeen.substring(11,FirstSeen.length());
+				FirstSeen = time + "T"+date+"Z";
+				System.out.println(FirstSeen);
+				
 				sb.append("<Placemark>\n");
+				sb.append("<TimeStamp>\n");
+				sb.append("<when>"+ FirstSeen+"</when>\n");
+				sb.append("</TimeStamp>\n");
 				sb.append("<name>" + "<![CDATA[" +  element.getMetaData().getSSID() + "]]>" + "</name>\n");
 				sb.append("<description>" + "<![CDATA[BSSID: <b>" + element.getMetaData().getMAC() + "</b><br/>Capabilities: <b>" + element.getMetaData().getAuthMode() + "</b><br/>Timestamp: <b>" + element.getData().getUTC() + "</b><br/>Channel: <b>" + element.getMetaData().getChannel() + "</b><br/>RSSI: <b>" + element.getMetaData().getRSSI() + "</b><br/>AltitudeMeters: <b>" + element.getGps().z() + "</b><br/>AccuracyMeters: <b>" + element.getMetaData().getAccuracyMeters() + "</b><br/>Type: <b>" + element.getMetaData().getType() + "</b><br/>Date: <b>" + element.getMetaData().getFirstSeen() + "</b>]]>" + "</description><styleUrl>#red</styleUrl>\n");
 				sb.append("<Point>\n");
 				sb.append("<coordinates>" + element.getGps().y() + "," + element.getGps().x() + "</coordinates></Point>\n");
-				sb.append("</Placemark>");
+				sb.append("</Placemark>\n");
 			}
 
 		}
