@@ -2,6 +2,7 @@ package GIS;
 
 import java.util.Arrays;
 
+import Coords.MyCoords;
 import Geom.Geom_element;
 import Geom.Point3D;
 
@@ -34,7 +35,8 @@ public class Element implements GIS_element {
 	}
 
 	public void translate(Point3D vec) {
-
+		MyCoords cor = new MyCoords();
+		this.gps = cor.add(gps, vec);
 	}
 	
 	public static void main(String []args) {

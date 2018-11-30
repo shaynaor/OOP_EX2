@@ -1,15 +1,16 @@
 package GIS;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 
 public class Layer implements GIS_layer {
-    private HashSet<GIS_element> layer;
+    private ArrayList<GIS_element> layer;
     
 	
 	public Layer() {
-		this.layer = new HashSet<GIS_element>();
+		this.layer = new ArrayList<GIS_element>();
 	}
     
 	public boolean add(GIS_element arg0) {
@@ -64,9 +65,9 @@ public class Layer implements GIS_layer {
 		return this.layer.toArray(arg0);
 	}
 
-	public Meta_data get_Meta_data() { 
-		Mdata time = new Mdata();
-		return time;
+	@Override
+	public Meta_data get_Meta_data() {
+		return this.layer.get(0).getData();
 	}
 
 

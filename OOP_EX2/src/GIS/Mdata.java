@@ -1,52 +1,73 @@
 package GIS;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import Geom.Point3D;
 
-public class Mdata implements Meta_data{
+public class Mdata implements Meta_data {
+	private String MAC;
+	private String SSID;
+	private String AuthMode;
+	private String FirstSeen;
+	private String Channel;
+	private String RSSI;
+	private String AccuracyMeters;
+	private String Type;
 
-	private String[] description;
-	private long time;
-	
+//	private String[] description;
+//	private long time;
+
 	public Mdata(String[] meta) {
-		this.description = meta;
-		
-	}
-	public Mdata() {
-		this.time = getUTC();	
-	}
-	
-	
-	public long getUTC() {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		long milliseconds = 0;
-		try {
-			Date d = (Date) format.parse(this.description[3]);
-			format.getCalendar().getTime();
-		    milliseconds = d.getTime();
-			} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		System.out.println(milliseconds);
-		return milliseconds;
+		this.MAC = meta[0];
+		this.SSID = meta[1];
+		this.AuthMode = meta[2];
+		this.FirstSeen = meta[3];
+		this.Channel = meta[4];
+		this.RSSI = meta[5];
+		this.AccuracyMeters = meta[9];
+		this.Type = meta[10];
+
 	}
 
-	
-	public Point3D get_Orientation() {
+	public String getMAC() {
+		return MAC;
+	}
+
+	public String getSSID() {
+		return SSID;
+	}
+
+	public String getAuthMode() {
+		return AuthMode;
+	}
+
+	public String getFirstSeen() {
+		return FirstSeen;
+	}
+
+	public String getChannel() {
+		return Channel;
+	}
+
+	public String getRSSI() {
+		return RSSI;
+	}
+
+	public String getAccuracyMeters() {
+		return AccuracyMeters;
+	}
+
+	public String getType() {
+		return Type;
+	}
+
+	public long getUTC() {
+		Long currTime = new Date().getTime();
+		return currTime;
+	}
+
+	public Point3D get_Orientation() {/// *****not need to do.******
 		return null;
 	}
-	
-	public String toString() {
-		String s = "";
-		for(int i = 0 ; i < description.length ; i++) {
-			s += description[i] + ", ";
-		}
-		return s;
-	}
-	
-	
 
 }
