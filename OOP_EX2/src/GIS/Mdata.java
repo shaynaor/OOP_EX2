@@ -1,5 +1,6 @@
 package GIS;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import Geom.Point3D;
@@ -24,8 +25,8 @@ public class Mdata implements Meta_data {
 		this.FirstSeen = meta[3];
 		this.Channel = meta[4];
 		this.RSSI = meta[5];
-		this.AccuracyMeters = meta[9];
-		this.Type = meta[10];
+		this.AccuracyMeters = meta[6];
+		this.Type = meta[7];
 
 	}
 
@@ -65,6 +66,7 @@ public class Mdata implements Meta_data {
 		Long currTime = new Date().getTime();
 		return currTime;
 	}
+	
 
 	public Point3D get_Orientation() {/// *****not need to do.******
 		return null;

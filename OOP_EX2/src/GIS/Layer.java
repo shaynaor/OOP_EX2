@@ -65,7 +65,6 @@ public class Layer implements GIS_layer {
 		return this.layer.toArray(arg0);
 	}
 
-	@Override
 	public Meta_data get_Meta_data() {
 		return this.layer.get(0).getData();
 	}
