@@ -4,7 +4,11 @@ import java.util.Arrays;
 import java.util.Date;
 
 import Geom.Point3D;
-
+/**
+ * This class represents the metadata we get from a csv file.
+ * @author A Beast
+ *
+ */
 public class Mdata implements Meta_data {
 	private String MAC;
 	private String SSID;
@@ -15,8 +19,7 @@ public class Mdata implements Meta_data {
 	private String AccuracyMeters;
 	private String Type;
 
-//	private String[] description;
-//	private long time;
+
 
 	public Mdata(String[] meta) {
 		this.MAC = meta[0];
