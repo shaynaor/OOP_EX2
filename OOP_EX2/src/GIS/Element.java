@@ -5,7 +5,13 @@ import java.util.Arrays;
 import Coords.MyCoords;
 import Geom.Geom_element;
 import Geom.Point3D;
-
+/**
+ * This class represents an element.
+ * an element is an object which has a gps point associated with it.
+ * and metadata.
+ * @author Alex Vaisman, Shay naor
+ *
+ */
 public class Element implements GIS_element {
 
 	private Point3D gps;
