@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-
+/**
+ * this class represents a layer.
+ * layer is an array list of elements. 
+ * usually a layer will be made from one gps data file.
+ * @author A Beast
+ *
+ */
 public class Layer implements GIS_layer {
     private ArrayList<GIS_element> layer;
     
