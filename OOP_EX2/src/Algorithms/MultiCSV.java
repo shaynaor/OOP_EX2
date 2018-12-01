@@ -11,14 +11,26 @@ import GIS.Layer;
 import GIS.Project;
 
 /**
- * This class reads all the csv files from a folder and creates....
- * 
+ * This class reads all the csv files from a folder and creates a new project.
+ * each layer in the project is one file the function read.
+ * each layer is made of elements and each element represents a point with metadata.
+ * The MultiCSV function  will return a project and make a ksm file of all the data.
  * @author Alex Vaisman , Shay Naor.
  *
  */
 public class MultiCSV {
 	private ArrayList<String[]> AllFileDataMatrix; // contains all the input from the csv files.
 
+	
+	/**
+	 * This fucntion will read all the csv files from a folder and will make a project.
+	 * the project is made of of layers when each layer represents one file.
+	 * and each layer is made out of elements when each element represents a gps point with metadata.
+	
+	 * @param folder the folder with the csv files
+	 * @param outPutPath output destination for the ksm file
+	 * @return returns a project 
+	 */
 	public Project MultiCSV(String folder, String outPutPath) {
 		this.AllFileDataMatrix = new ArrayList<String[]>();
 
@@ -59,7 +71,12 @@ public class MultiCSV {
 		}
 		return CSVFiles;
 	}
-
+    /**
+     * this function receives a path to csv file .
+     * the function will read the file and make a layer of elements from it.
+     * @param path
+     * @return
+     */
 	private Layer readCsvToLayer(String path) {
 		Layer layer = new Layer();
 		ArrayList<String[]> dataMatrix = new ArrayList<String[]>();
