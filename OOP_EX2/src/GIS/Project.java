@@ -5,7 +5,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 /**
- * 
+ * This class represent a project.
+ * a project is an array list of layers.
+ * usually a project will consistent of few gps data files.
  * @author Alex vaisman, shay naor
  *
  */
