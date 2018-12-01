@@ -8,7 +8,7 @@ import java.util.Iterator;
  * this class represents a layer.
  * layer is an array list of elements. 
  * usually a layer will be made from one gps data file.
- * @author A Beast
+ * @author Alex vaisman, Shar naor
  *
  */
 public class Layer implements GIS_layer {

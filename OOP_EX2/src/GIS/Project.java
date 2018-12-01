@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-
+/**
+ * 
+ * @author Alex vaisman, shay naor
+ *
+ */
 public class Project implements GIS_project {
 	private ArrayList<GIS_layer> project;
 

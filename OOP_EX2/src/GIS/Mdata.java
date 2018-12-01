@@ -6,7 +6,7 @@ import java.util.Date;
 import Geom.Point3D;
 /**
  * This class represents the metadata we get from a csv file.
- * @author A Beast
+ * @author Alex Vaisman , Shay naor
  *
  */
 public class Mdata implements Meta_data {
