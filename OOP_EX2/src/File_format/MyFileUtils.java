@@ -31,12 +31,12 @@ import Algorithms.MultiCSV;
 public class MyFileUtils {
 
 	/**
-	 * This function recived a start line and path to a csv file and create a ArrayList<String[]>
+	 * This function recived a start line and path to a csv file and create a ArrayList String[]
 	 * that contains the csv file data.
 	 * 
 	 * @param path      location of csv file.
 	 * @param startLine from which line to read.
-	 * @return ArrayList<String[]> contains the csv file data.
+	 * @return ArrayList String[] contains the csv file data.
 	 * @throws IOException if the path is incorrect the function throws IOException.
 	 */
 	public static ArrayList<String[]> readCSVFile(String path, int startLine) throws IOException {
@@ -62,7 +62,7 @@ public class MyFileUtils {
 	 * This function recived a path and project and write a kml file.
 	 * 
 	 * @param path      location of kml file.
-	 * @param project contains the layers->elements that we want to write a kml file with.
+	 * @param project contains the layers of elements that we want to write a kml file with.
 	 * @throws IOException if the path is incorrect the function throws IOException.
 	 */
 	public static void writeKMLFile(String path, Project project) throws IOException {
@@ -108,12 +108,12 @@ public class MyFileUtils {
 	}
 
 	/**
-	 * This function recives folder path and return a ArrayList<String> that
+	 * This function recives folder path and return a ArrayList String that
 	 * contains all the paths for csv files in folder. The algorithem taken from :
 	 * https://stackoverflow.com/questions/1844688/how-to-read-all-files-in-a-folder-from-java.
 	 * 
 	 * @param folder that contains the csv files.
-	 * @return ArrayList<String> that contains all the paths for csv files in
+	 * @return ArrayList String that contains all the paths for csv files in
 	 *         folder.
 	 */
 	public static ArrayList<String> listFilesForFolder(final File folder) throws NullPointerException {
