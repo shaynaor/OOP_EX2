@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,6 +18,7 @@ import GIS.GIS_layer;
 import GIS.Layer;
 import GIS.Mdata;
 import GIS.Project;
+import Algorithms.MultiCSV;
 
 
 /**
@@ -66,11 +70,12 @@ public class MyFileUtils {
 		FileWriter fw = new FileWriter(path);
 		BufferedWriter bw = new BufferedWriter(fw);
 		Iterator<GIS_layer> itLayer = project.iterator();//layer iterator
+		int counter = 1;//count number of layers.
 
 		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"); //first row in kml.
-		sb.append(
-				"<kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><Style id=\"red\"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/red-dot.png</href></Icon></IconStyle></Style><Style id=\"yellow\"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/yellow-dot.png</href></Icon></IconStyle></Style><Style id=\"green\"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/green-dot.png</href></Icon></IconStyle></Style><Folder><name>Wifi Networks</name>\n");//second row in kml.
+		sb.append("<kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><Style id=\"red\"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/red-dot.png</href></Icon></IconStyle></Style><Style id=\"yellow\"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/yellow-dot.png</href></Icon></IconStyle></Style><Style id=\"green\"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/green-dot.png</href></Icon></IconStyle></Style><Folder><name>Wifi Networks</name>\n");//second row in kml.
 		while (itLayer.hasNext()) {//go over all the layers.
+			sb.append("<Folder><name>layer number: "+ counter++ + "</name>\n");
 			Layer temp = (Layer) itLayer.next();
 			Iterator<GIS_element> itElement = temp.iterator();//create Element iterator.
 			while (itElement.hasNext()) {//go over all the elements in current layer.
@@ -79,18 +84,21 @@ public class MyFileUtils {
 				String time = FirstSeen.substring(0, 10);
 				String date = FirstSeen.substring(11,FirstSeen.length());
 				FirstSeen = time + "T"+date+"Z";//create TimeStamp according to the requirements Google Earth.
+				
+				long lUTC = element.getMetaData().getUTC();
+				String sUTC = convertTime(lUTC);//convert the long UTC to string.
 
 				sb.append("<Placemark>\n");
 				sb.append("<TimeStamp>\n");
 				sb.append("<when>"+ FirstSeen+"</when>\n");
 				sb.append("</TimeStamp>\n");
 				sb.append("<name>" + "<![CDATA[" +  element.getMetaData().getSSID() + "]]>" + "</name>\n");
-				sb.append("<description>" + "<![CDATA[BSSID: <b>" + element.getMetaData().getMAC() + "</b><br/>Capabilities: <b>" + element.getMetaData().getAuthMode() + "</b><br/>Timestamp: <b>" + element.getData().getUTC() + "</b><br/>Channel: <b>" + element.getMetaData().getChannel() + "</b><br/>RSSI: <b>" + element.getMetaData().getRSSI() + "</b><br/>AltitudeMeters: <b>" + element.getGps().z() + "</b><br/>AccuracyMeters: <b>" + element.getMetaData().getAccuracyMeters() + "</b><br/>Type: <b>" + element.getMetaData().getType() + "</b><br/>Date: <b>" + element.getMetaData().getFirstSeen() + "</b>]]>" + "</description><styleUrl>#red</styleUrl>\n");
+				sb.append("<description>" + "<![CDATA[BSSID: <b>" + element.getMetaData().getMAC() + "</b><br/>Capabilities: <b>" + element.getMetaData().getAuthMode() + "</b><br/>Timestamp: <b>" + sUTC + "</b><br/>Channel: <b>" + element.getMetaData().getChannel() + "</b><br/>RSSI: <b>" + element.getMetaData().getRSSI() + "</b><br/>AltitudeMeters: <b>" + element.getGps().z() + "</b><br/>AccuracyMeters: <b>" + element.getMetaData().getAccuracyMeters() + "</b><br/>Type: <b>" + element.getMetaData().getType() + "</b><br/>Date: <b>" + element.getMetaData().getFirstSeen() + "</b>]]>" + "</description><styleUrl>#red</styleUrl>\n");
 				sb.append("<Point>\n");
 				sb.append("<coordinates>" + element.getGps().y() + "," + element.getGps().x() + "</coordinates></Point>\n");
 				sb.append("</Placemark>\n");
 			}
-
+			sb.append("\n</Folder>\n");
 		}
 		sb.append("\n</Folder>\n");
 		sb.append("</Document></kml>") ;//last row in kml file.
@@ -125,6 +133,17 @@ public class MyFileUtils {
 			}
 		}
 		return listFiles;
+	}
+	
+	/**
+	 * This function converts a long value to string of time.
+	 * @param time  time in long.
+	 * @return current time in string.
+	 */
+	public static String convertTime(long time) {
+		Date date = new Date(time);
+		Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return format.format(date);
 	}
 
 }

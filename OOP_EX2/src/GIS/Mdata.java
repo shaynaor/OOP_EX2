@@ -70,6 +70,7 @@ public class Mdata implements Meta_data {
 		return currTime;
 	}
 	
+	
 
 	public String toString() {
 		return "Mdata [MAC=" + MAC + ", SSID=" + SSID + ", AuthMode=" + AuthMode + ", FirstSeen=" + FirstSeen
