@@ -27,7 +27,7 @@ import GIS.Project;
 public class MyFileUtils {
 
 	/**
-	 * This function recived a path to a csv file and create a ArrayList<String[]>
+	 * This function recived a start line and path to a csv file and create a ArrayList<String[]>
 	 * that contains the csv file data.
 	 * 
 	 * @param path      location of csv file.
@@ -55,34 +55,31 @@ public class MyFileUtils {
 	}
 
 	/**
-	 * This function recived a path and ArrayList<String[]> that contains the csv
-	 * file data and write a kml file.
+	 * This function recived a path and project and write a kml file.
 	 * 
 	 * @param path      location of kml file.
-	 * @param container contains the csv file data that we want to convert to kml
-	 *                  file.
+	 * @param project contains the layers->elements that we want to write a kml file with.
 	 * @throws IOException if the path is incorrect the function throws IOException.
 	 */
 	public static void writeKMLFile(String path, Project project) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		FileWriter fw = new FileWriter(path);
 		BufferedWriter bw = new BufferedWriter(fw);
-		Iterator<GIS_layer> itLayer = project.iterator();
+		Iterator<GIS_layer> itLayer = project.iterator();//layer iterator
 
-		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"); //first row in kml.
 		sb.append(
-				"<kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><Style id=\"red\"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/red-dot.png</href></Icon></IconStyle></Style><Style id=\"yellow\"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/yellow-dot.png</href></Icon></IconStyle></Style><Style id=\"green\"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/green-dot.png</href></Icon></IconStyle></Style><Folder><name>Wifi Networks</name>\n");
-		while (itLayer.hasNext()) {
+				"<kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><Style id=\"red\"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/red-dot.png</href></Icon></IconStyle></Style><Style id=\"yellow\"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/yellow-dot.png</href></Icon></IconStyle></Style><Style id=\"green\"><IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/green-dot.png</href></Icon></IconStyle></Style><Folder><name>Wifi Networks</name>\n");//second row in kml.
+		while (itLayer.hasNext()) {//go over all the layers.
 			Layer temp = (Layer) itLayer.next();
-			Iterator<GIS_element> itElement = temp.iterator();
-			while (itElement.hasNext()) {
+			Iterator<GIS_element> itElement = temp.iterator();//create Element iterator.
+			while (itElement.hasNext()) {//go over all the elements in current layer.
 				Element element = (Element) itElement.next();
 				String FirstSeen = element.getMetaData().getFirstSeen();
 				String time = FirstSeen.substring(0, 10);
 				String date = FirstSeen.substring(11,FirstSeen.length());
-				FirstSeen = time + "T"+date+"Z";
-				System.out.println(FirstSeen);
-				
+				FirstSeen = time + "T"+date+"Z";//create TimeStamp according to the requirements Google Earth.
+
 				sb.append("<Placemark>\n");
 				sb.append("<TimeStamp>\n");
 				sb.append("<when>"+ FirstSeen+"</when>\n");
@@ -96,7 +93,7 @@ public class MyFileUtils {
 
 		}
 		sb.append("\n</Folder>\n");
-		sb.append("</Document></kml>") ;
+		sb.append("</Document></kml>") ;//last row in kml file.
 		bw.write(sb.toString());
 		bw.close();
 

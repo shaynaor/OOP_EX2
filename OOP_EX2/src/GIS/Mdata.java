@@ -71,6 +71,12 @@ public class Mdata implements Meta_data {
 	}
 	
 
+	public String toString() {
+		return "Mdata [MAC=" + MAC + ", SSID=" + SSID + ", AuthMode=" + AuthMode + ", FirstSeen=" + FirstSeen
+				+ ", Channel=" + Channel + ", RSSI=" + RSSI + ", AccuracyMeters=" + AccuracyMeters + ", Type=" + Type
+				+ ", getUTC()=" + getUTC() + "]";
+	}
+
 	public Point3D get_Orientation() {/// *****not need to do.******
 		return null;
 	}
