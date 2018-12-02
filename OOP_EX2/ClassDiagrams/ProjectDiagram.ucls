@@ -3,12 +3,12 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <package id="1" language="java" name="Coords" project="OOP_EX2" file="/OOP_EX2/src/Coords" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="55" width="122" x="381" y="228"/>    
+    <position height="-1" width="-1" x="511" y="171"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <class id="2" language="java" name="GIS.Mdata" project="OOP_EX2" file="/OOP_EX2/src/GIS/Mdata.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="430" width="185" x="2128" y="608"/>    
+    <position height="-1" width="-1" x="2222" y="823"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -17,7 +17,7 @@
   </class>  
   <class id="3" language="java" name="Algorithms.Main" project="OOP_EX2" file="/OOP_EX2/src/Algorithms/Main.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="106" width="130" x="894" y="228"/>    
+    <position height="-1" width="-1" x="961" y="281"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -26,7 +26,7 @@
   </class>  
   <interface id="4" language="java" name="GIS.GIS_layer" project="OOP_EX2" file="/OOP_EX2/src/GIS/GIS_layer.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="88" width="185" x="2886" y="608"/>    
+    <position height="-1" width="-1" x="2980" y="652"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -35,12 +35,12 @@
   </interface>  
   <package id="5" language="java" name="Geom" project="OOP_EX2" file="/OOP_EX2/src/Geom" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="55" width="122" x="1064" y="228"/>    
+    <position height="-1" width="-1" x="2641" y="562"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <interface id="6" language="java" name="Geom.Geom_element" project="OOP_EX2" 
     file="/OOP_EX2/src/Geom/Geom_element.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="106" width="187" x="2353" y="1582"/>    
+    <position height="-1" width="-1" x="2448" y="1635"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -49,7 +49,7 @@
   </interface>  
   <class id="7" language="java" name="Algorithms.MultiCSV" project="OOP_EX2" 
     file="/OOP_EX2/src/Algorithms/MultiCSV.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="160" width="242" x="1226" y="228"/>    
+    <position height="-1" width="-1" x="1349" y="308"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -58,7 +58,7 @@
   </class>  
   <interface id="8" language="java" name="GIS.GIS_project" project="OOP_EX2" file="/OOP_EX2/src/GIS/GIS_project.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="88" width="185" x="3111" y="608"/>    
+    <position height="-1" width="-1" x="3205" y="652"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -67,17 +67,17 @@
   </interface>  
   <package id="9" language="java" name="Algorithms" project="OOP_EX2" file="/OOP_EX2/src/Algorithms" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="55" width="122" x="1508" y="228"/>    
+    <position height="-1" width="-1" x="1337" y="183"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="10" language="java" name="GIS" project="OOP_EX2" file="/OOP_EX2/src/GIS" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="55" width="122" x="1670" y="228"/>    
+    <position height="-1" width="-1" x="2868" y="161"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <interface id="11" language="java" name="GIS.GIS_element" project="OOP_EX2" file="/OOP_EX2/src/GIS/GIS_element.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="124" width="179" x="2667" y="608"/>    
+    <position height="-1" width="-1" x="2758" y="670"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -86,7 +86,7 @@
   </interface>  
   <class id="12" language="java" name="Geom.Point3D" project="OOP_EX2" file="/OOP_EX2/src/Geom/Point3D.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="934" width="274" x="2353" y="608"/>    
+    <position height="-1" width="-1" x="2492" y="1075"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -95,7 +95,7 @@
   </class>  
   <class id="13" language="java" name="Coords.ConvertGpsToXyz" project="OOP_EX2" 
     file="/OOP_EX2/src/Coords/ConvertGpsToXyz.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="214" width="174" x="1832" y="228"/>    
+    <position height="-1" width="-1" x="410" y="332"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -104,7 +104,7 @@
   </class>  
   <interface id="14" language="java" name="GIS.Meta_data" project="OOP_EX2" file="/OOP_EX2/src/GIS/Meta_data.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="124" width="172" x="2128" y="1582"/>    
+    <position height="-1" width="-1" x="2216" y="1644"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -113,7 +113,7 @@
   </interface>  
   <class id="15" language="java" name="Coords.MyCoords" project="OOP_EX2" file="/OOP_EX2/src/Coords/MyCoords.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="178" width="311" x="543" y="228"/>    
+    <position height="-1" width="-1" x="700" y="317"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -122,7 +122,7 @@
   </class>  
   <interface id="16" language="java" name="Coords.coords_converter" project="OOP_EX2" 
     file="/OOP_EX2/src/Coords/coords_converter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="160" width="311" x="543" y="608"/>    
+    <position height="-1" width="-1" x="700" y="688"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -131,7 +131,7 @@
   </interface>  
   <class id="17" language="java" name="GIS.Element" project="OOP_EX2" file="/OOP_EX2/src/GIS/Element.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="178" width="179" x="2521" y="228"/>    
+    <position height="-1" width="-1" x="2612" y="317"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -140,7 +140,7 @@
   </class>  
   <class id="18" language="java" name="GIS.Project" project="OOP_EX2" file="/OOP_EX2/src/GIS/Project.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="340" width="249" x="3047" y="228"/>    
+    <position height="-1" width="-1" x="3173" y="398"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -149,7 +149,7 @@
   </class>  
   <class id="19" language="java" name="File_format.MyFileUtils" project="OOP_EX2" 
     file="/OOP_EX2/src/File_format/MyFileUtils.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="160" width="273" x="2046" y="228"/>    
+    <position height="-1" width="-1" x="2184" y="308"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -158,7 +158,7 @@
   </class>  
   <class id="20" language="java" name="GIS.Layer" project="OOP_EX2" file="/OOP_EX2/src/GIS/Layer.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="340" width="267" x="2740" y="228"/>    
+    <position height="-1" width="-1" x="2875" y="398"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -167,7 +167,7 @@
   </class>  
   <package id="21" language="java" name="File_format" project="OOP_EX2" file="/OOP_EX2/src/File_format" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="55" width="122" x="2359" y="228"/>    
+    <position height="-1" width="-1" x="2162" y="184"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <association id="22">    
