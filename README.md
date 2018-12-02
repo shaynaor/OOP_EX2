@@ -15,8 +15,7 @@ A project is an array list of layers.
 
 This code contains methods to calculate distance , pitch and yaw between gps points , and an option to move them in meters.
 
-How to use:
-
+# How to use:
 Inside the Algorithms package there is a main class.
 
 it will read from a given folder all the CSV files translate them into layers made out of elements , and will creat a new kml file in an out put path.
