@@ -1,6 +1,7 @@
 # OOP_EX2
 
 Authors: Alex vaisman , Shay naor.
+
 This code can read CSV files extract the infromation from the files and creat a KML file
 that runs in google earth.
 The code will read all the CSV files in a given folder.
