@@ -101,12 +101,4 @@ public class MultiCSV {
 		return layer;
 	}
 
-
-
-	public static void main(String[] args) {
-		String folder = "C:\\Users\\User\\Desktop\\מטלה 2 מונחה\\Ex2\\data";
-		MultiCSV test = new MultiCSV();
-		Project pro = test.MultiCSV(folder, "C:\\Users\\User\\Desktop\\test-IO\\shaytest.kml");
-
-	}
 }

@@ -48,7 +48,10 @@ public class Element implements GIS_element {
 	public Meta_data getData() {
 		return this.metaData;
 	}
-
+	
+	/**
+	 * Transforms a gps point by a vector point in meters.
+	 */
 	public void translate(Point3D vec) {
 		MyCoords cor = new MyCoords();
 		this.gps = cor.add(this.gps, vec);
