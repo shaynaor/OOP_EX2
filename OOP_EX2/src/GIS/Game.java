@@ -4,20 +4,29 @@ package GIS;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-
 import File_format.MyFileUtils;
 
+/**
+ * 
+ * 
+ * @author Shay Naor , Alex VAisman
+ *
+ */
 public class Game {
-	private ArrayList<Fruit> fruits;
-	private ArrayList<Pacman> pacmans;
+	private ArrayList<Fruit> fruits;// contains all the Fruits.
+	private ArrayList<Pacman> pacmans;// contains all the Pacmans.
 	private int numFruit;
 	private int numPacmans;
 
+	/**
+	 * 
+	 * @param path
+	 */
 	public Game(String path) {
 		this.fruits = new ArrayList<Fruit>();
 		this.pacmans = new ArrayList<Pacman>();
 
-		ArrayList<String[]> gameData = new ArrayList<String[]>();
+		ArrayList<String[]> gameData = new ArrayList<String[]>();// contains the csv data.
 
 		try {
 			gameData = MyFileUtils.readCSVFile(path, 0);
@@ -27,6 +36,10 @@ public class Game {
 
 		String line[] = {};
 
+		/*
+		 * Goes throw the gameData and if its Fruit adds to Fruit and if its Pacman adds
+		 * to Pacman.
+		 */
 		for (int i = 1; i < gameData.size(); i++) {
 			line = gameData.get(i);
 			if (line[0] == "P") {
@@ -56,10 +69,25 @@ public class Game {
 							"type:string/char, id:int/double, lat:double, lon:double, lat:double, speed:int/double, radius:int/double ");
 					e.printStackTrace();
 				}
-
 			}
 		}
 
+	}
+
+	public ArrayList<Fruit> getFruits() {
+		return fruits;
+	}
+
+	public ArrayList<Pacman> getPacmans() {
+		return pacmans;
+	}
+
+	public int getNumFruit() {
+		return numFruit;
+	}
+
+	public int getNumPacmans() {
+		return numPacmans;
 	}
 
 }
