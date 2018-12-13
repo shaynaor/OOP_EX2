@@ -13,13 +13,9 @@ public class Mdata_game implements Meta_data {
 	public Mdata_game(String[] meta) throws ParseException {
 		this.id = Integer.parseInt(meta[1]);
 		this.speedWeight = Double.parseDouble(meta[5]);
+		if(meta[0].contains("P")) {
 		this.radius = Double.parseDouble(meta[6]);
-		
-		
-		
-		
-		
-		
+		}
 	}
 
 

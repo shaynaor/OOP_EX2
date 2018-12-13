@@ -41,12 +41,16 @@ public class Game {
 		 * to Pacman.
 		 */
 		for (int i = 1; i < gameData.size(); i++) {
+			
 			line = gameData.get(i);
-			if (line[0] == "P") {
+			
+			if (line[0].contains("P")) {
+				
 				try {
 					Pacman pac = new Pacman(line);
 					this.pacmans.add(pac);
 					this.numPacmans++;
+				
 				} catch (ParseException e) {
 					System.err.println("The csv file is corrupted");
 					System.err.println("Make sure each line in cvs file writen in the following format");
@@ -56,12 +60,12 @@ public class Game {
 				}
 
 			}
-			if (line[0] == "F") {
+			if (line[0].contains("F")) {
 				try {
 					Fruit fruit = new Fruit(line);
 					this.fruits.add(fruit);
 					this.numFruit++;
-
+					
 				} catch (ParseException e) {
 					System.err.println("The csv file is corrupted");
 					System.err.println("Make sure each line in cvs file writen in the following format");
