@@ -12,6 +12,8 @@ public class Map {
 	private Point3D botRight;
 	private double ratioHeight;
 	private double ratioWidth;
+	private double ratioGpsHeight;
+	private double ratioGpsWidth;
 
 
 
@@ -21,6 +23,7 @@ public class Map {
 		this.topLeft = topLeft;
 		this.botRight = botRight;
 		RpixelMeters();
+		RatioGps();
 	}
 
 
@@ -40,6 +43,19 @@ public class Map {
 
 		this.ratioHeight = distanceHeight;
 		this.ratioWidth = distanceWidth;	
+	}
+	
+	private void RatioGps() {
+		Point3D botLeft = new Point3D(botRight.x(),topLeft.y());
+		MyCoords coords = new MyCoords();
+		double deltaGpsHeight;
+		double deltaGpsWidth;
+		
+		
+		deltaGpsHeight = this.topLeft.x()-this.botRight.x();
+		deltaGpsWidth = this.botRight.y()-this.topLeft.y();
+		System.out.println(deltaGpsWidth);
+	
 	}
 
 
@@ -84,7 +100,12 @@ public class Map {
 
 
 	public Point3D convertPixeltoGPS(Pixel pixel) {
-
+        double dy = pixel.getY();
+        double dx = pixel.getX();
+        
+        dy = (dy*ratioWidth);
+        dx = (dx*ratioHeight);
+       
 
 		return null;
 	}
@@ -143,7 +164,11 @@ public class Map {
 		//System.out.println(map.anglePixel(p2, p1));
 		
 		
-		System.out.println(map.isValid_GPS_Point(check));
+
+		
+	    
+		   
+		//System.out.println(map.convertPixeltoGPS(p1));
 	
 	}
 
