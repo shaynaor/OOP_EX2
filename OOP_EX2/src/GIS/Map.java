@@ -21,7 +21,6 @@ public class Map {
 		this.topLeft = topLeft;
 		this.botRight = botRight;
 		RpixelMeters();
-
 	}
 
 
@@ -48,10 +47,10 @@ public class Map {
 
 
 	public Pixel convertGPStoPixel(Point3D gps) {
-		//======check if gps in pic?==========
-
-
-		//======math============
+		if(!isValid_GPS_Point(gps)) {
+			System.err.println("Ivalid gps point, the gps point is outside the map!");
+			throw new RuntimeException();
+		}
 		MyCoords coords = new MyCoords();
 
 
