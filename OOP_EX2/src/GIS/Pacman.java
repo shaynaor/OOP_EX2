@@ -29,8 +29,6 @@ public class Pacman implements GIS_element {
 	public Meta_data getMetaData() {
 		return metaData;
 	}
-
-
 	
 	public Geom_element getGeom() {
 		return this.gps;
@@ -44,6 +42,7 @@ public class Pacman implements GIS_element {
 	/**
 	 * Transforms a gps point by a vector point in meters.
 	 */
+	
 	public void translate(Point3D vec) {
 		MyCoords cor = new MyCoords();
 		this.gps = cor.add(this.gps, vec);

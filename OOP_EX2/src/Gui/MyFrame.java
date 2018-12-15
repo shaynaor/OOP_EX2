@@ -69,17 +69,19 @@ public class MyFrame extends JFrame implements MouseListener {
 			e.printStackTrace();
 		}
 		
-		/* Add action to load File botton */
+		/* Add action to load File button */
 		loadFile.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
 		        ChooseButton1MouseClicked(e);
 		    }
 		});
-           
+       
+		
 
 	}
-	/* https://stackoverflow.com/questions/27709758/file-chooser-display-with-a-button-click-java-swing */
+	/* Add file chooser to load button.
+	 * https://stackoverflow.com/questions/27709758/file-chooser-display-with-a-button-click-java-swing */
 	private void ChooseButton1MouseClicked(ActionEvent e) {
 
 	    JFileChooser fileChooser = new JFileChooser();
@@ -97,7 +99,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		Iterator<Point3D> pIterator = arrPoint.iterator();
 		while (pIterator.hasNext()) {
 			Point3D p = pIterator.next();
-			int r = 25;
+			int r = 20;
 			int x = p.ix() - (r / 2);
 			int y = p.iy() - (r / 2);
 			g.setColor(Color.blue);
@@ -119,6 +121,7 @@ public class MyFrame extends JFrame implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
+		
 	}
 
 	@Override
