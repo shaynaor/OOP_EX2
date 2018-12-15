@@ -111,15 +111,16 @@ public class Map {
 	public static void main(String[] args) {
 		Point3D topLeft = new Point3D(32.105689,35.202411 );
 		Point3D botRight = new Point3D(32.101931, 35.212397 );
-
+        
 		Point3D check =  new Point3D(32.102495, 35.207474);
-
+        
+		Pixel p1 = new Pixel(10,10);
+		Pixel p2 =  new Pixel(0,0);
 		Map map = new Map(1433,642,topLeft,botRight);
 
 		Pixel pixel =map.convertGPStoPixel(check);
 
-		System.out.println(pixel.getX());
-		System.out.println(pixel.getY());
+	
 	}
 
 
