@@ -102,9 +102,14 @@ public class Map {
 		return distance;
 	}
 
-	public double AzimutPixel (Pixel a, Pixel b) {
-
-		return 0;
+	public double anglePixel (Pixel a, Pixel b) {
+		double dist = distancePixel(a, b);
+		double dx;
+		double angle;
+		dx = b.getX() - a.getX();
+		angle = Math.acos(dx/dist);
+		angle = Math.toDegrees(angle);
+		return angle;
 	}
 
 
@@ -119,7 +124,8 @@ public class Map {
 		Map map = new Map(1433,642,topLeft,botRight);
 
 		Pixel pixel =map.convertGPStoPixel(check);
-
+		//System.out.println(map.distancePixel(p2, p1));
+		System.out.println(map.anglePixel(p2, p1));
 	
 	}
 
