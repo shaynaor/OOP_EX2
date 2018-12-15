@@ -111,6 +111,21 @@ public class Map {
 		angle = Math.toDegrees(angle);
 		return angle;
 	}
+	
+	public boolean isValid_GPS_Point(Point3D p) {
+		if (p == null)
+			return false;
+
+		double lat = p.x(), lon = p.y();
+		
+		if (lat > this.topLeft.x() || lat < this.botRight.x())
+			return false;
+
+		if (lon > this.botRight.y() || lon < this.topLeft.y())
+			return false;
+
+		return true;
+	}
 
 
 	public static void main(String[] args) {
@@ -118,14 +133,18 @@ public class Map {
 		Point3D botRight = new Point3D(32.101931, 35.212397 );
         
 		Point3D check =  new Point3D(32.102495, 35.207474);
+		
         
-		Pixel p1 = new Pixel(10,10);
+		Pixel p1 = new Pixel(20,20);
 		Pixel p2 =  new Pixel(0,0);
 		Map map = new Map(1433,642,topLeft,botRight);
 
 		Pixel pixel =map.convertGPStoPixel(check);
 		//System.out.println(map.distancePixel(p2, p1));
-		System.out.println(map.anglePixel(p2, p1));
+		//System.out.println(map.anglePixel(p2, p1));
+		
+		
+		System.out.println(map.isValid_GPS_Point(check));
 	
 	}
 
