@@ -60,20 +60,20 @@ public class Map {
 		double distance = coords.distance3d(gps, this.topLeft);
 		double dy;
 		double dx;
-        int pixelX;
-        int pixelY;
-        // === converting azi to degrees and then to radians ====
+		int pixelX;
+		int pixelY;
+		// === converting azi to degrees and then to radians ====
 		azi = azi % 90;
 		azi = Math.toRadians(azi);
-		
+
 		//==== finding right triangle a side =====
 		dy = distance*Math.sin(azi);
 		//==== finding right triangle b side =====
 		dx = distance*Math.cos(azi);
-		
+
 		pixelX = (int)(dx/ratioHeight);
 		pixelY = (int)(dy/ratioWidth);
-        
+
 		Pixel pixel = new Pixel(pixelX,pixelY);
 
 		return pixel;
@@ -92,8 +92,14 @@ public class Map {
 
 
 	public double distancePixel (Pixel a, Pixel b) {
+		double x1 = a.getX();
+		double x2 = b.getX();
+		double y1 = a.getY();
+		double y2 = b.getY();
+		double distance;
 
-		return 0;
+		distance = Math.sqrt(Math.pow((x2-x1), 2)+Math.pow((y2-y1), 2));
+		return distance;
 	}
 
 	public double AzimutPixel (Pixel a, Pixel b) {
@@ -111,9 +117,9 @@ public class Map {
 		Map map = new Map(1433,642,topLeft,botRight);
 
 		Pixel pixel =map.convertGPStoPixel(check);
-		
-        System.out.println(pixel.getX());
-        System.out.println(pixel.getY());
+
+		System.out.println(pixel.getX());
+		System.out.println(pixel.getY());
 	}
 
 
