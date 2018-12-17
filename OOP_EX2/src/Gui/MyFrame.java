@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
+import Algorithms.ShortestPathAlgo;
 import Coords.Convert_pixel_gps;
 import GIS.Fruit;
 import GIS.Game;
@@ -166,11 +167,14 @@ public class MyFrame extends JFrame implements MouseListener {
 				repaint();
 			}
 		}
+		ShortestPathAlgo algo = new ShortestPathAlgo(this.game);    // DELEEEETTTTTTTEEEEEEEEEEEEEE THIIISSSSS
+		
 	}
 
 
 	public void paint(Graphics g) {
 		g.drawImage(this.myImage, -9, -9, this.getWidth(), this.getHeight(), this);
+
 		this.map.setHeight(this.getHeight());
 		this.map.setWidth(this.getWidth());
 		/* Draw pacmans */
@@ -181,7 +185,7 @@ public class MyFrame extends JFrame implements MouseListener {
 			Pixel pixel = new Pixel(0, 0);
 			pixel = convert.convertGPStoPixel(pac.getGps());
 			int r = 30;
-			int x = pixel.getX() - (r / 2);
+			int x = pixel.getX() - (r / 2);   
 			int y = pixel.getY() - (r / 2);
 			g.setColor(Color.yellow);
 			g.fillOval(x, y, r, r);
