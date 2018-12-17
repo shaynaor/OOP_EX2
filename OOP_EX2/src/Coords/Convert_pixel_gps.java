@@ -5,6 +5,14 @@ import Geom.Point3D;
 import Gui.Map;
 
 public class Convert_pixel_gps {
+	public double getRatioHeight() {
+		return ratioHeight;
+	}
+
+	public double getRatioWidth() {
+		return ratioWidth;
+	}
+
 	private Map map;
 	private double ratioHeight;
 	private double ratioWidth;
@@ -24,7 +32,7 @@ public class Convert_pixel_gps {
 		/* Finding Height in meters */
 		distanceHeight = coords.distance3d(map.getTopLeft(), botLeft);
 		distanceHeight /= this.map.getHeight();
-
+		
 		/* inding Width in meters */
 		distanceWidth = coords.distance3d(botLeft, map.getBotRight());
 		distanceWidth /= this.map.getWidth();
@@ -34,7 +42,6 @@ public class Convert_pixel_gps {
 	}
 
 	public Pixel convertGPStoPixel(Point3D gps) {
-		System.out.println(gps);
 		if (!isIn(gps)) {
 			System.err.println("Ivalid gps point, the gps point is outside the map!");
 			throw new RuntimeException();
@@ -102,5 +109,6 @@ public class Convert_pixel_gps {
 
 		return true;
 	}
+	
 
 }

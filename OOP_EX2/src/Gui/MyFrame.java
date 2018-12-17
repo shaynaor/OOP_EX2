@@ -39,7 +39,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		this.game = new Game();
 		this.map = new Map();
 		this.myImage = map.getMyImage();
-		
+
 		initGUI();
 		this.addMouseListener(this);
 	}
@@ -72,7 +72,6 @@ public class MyFrame extends JFrame implements MouseListener {
 		setMenuBar(menuBar);
 		/* End to create the menu bar. */
 
-
 		/*
 		 * Add action to load File button
 		 * https://stackoverflow.com/questions/15703214/save-file-open-file-dialog-box-
@@ -84,8 +83,8 @@ public class MyFrame extends JFrame implements MouseListener {
 				/* Cannot draw fruits and pacman */
 				setPacman(false);
 				setFruit(false);
-				
-				 ChooseButtonLoadFile(arg0);
+
+				ChooseButtonLoadFile(arg0);
 			}
 		});
 
@@ -144,37 +143,39 @@ public class MyFrame extends JFrame implements MouseListener {
 		});
 
 	}
+
 	/* Load */
 	private void ChooseButtonLoadFile(ActionEvent e) {
 		/* Open load file chooser */
 		JFileChooser openFile = new JFileChooser();
 		int returnValue = openFile.showOpenDialog(null);
-		
-		/* If the file selected*/
+
+		/* If the file selected */
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
-			File selectedFile = openFile.getSelectedFile();//the file that selected.
-			String filePath = selectedFile.getPath();//the path to the file.
-			
+			File selectedFile = openFile.getSelectedFile();// the file that selected.
+			String filePath = selectedFile.getPath();// the path to the file.
+
 			/* If the file that selected is csv file */
-			if(filePath.contains(".csv")) {
+			if (filePath.contains(".csv")) {
 				/* Clear the game board */
 				this.game.getFruits().clear();
 				this.game.getPacmans().clear();
-				
+
 				/* Load the new game to the game board */
 				this.game = new Game(filePath);
 				repaint();
 			}
 		}
 	}
-	int i = 0;
+
+
 	public void paint(Graphics g) {
 		g.drawImage(this.myImage, -9, -9, this.getWidth(), this.getHeight(), this);
-		System.out.println(i++);
+		this.map.setHeight(this.getHeight());
+		this.map.setWidth(this.getWidth());
 		/* Draw pacmans */
 		Iterator<Pacman> pacIt = this.game.getPacmans().iterator();
 		Convert_pixel_gps convert = new Convert_pixel_gps(this.map);
-
 		while (pacIt.hasNext()) {
 			Pacman pac = pacIt.next();
 			Pixel pixel = new Pixel(0, 0);
@@ -230,9 +231,9 @@ public class MyFrame extends JFrame implements MouseListener {
 			int x = e.getX();
 			int y = e.getY();
 			Pixel pixel = new Pixel(x, y);
-			Convert_pixel_gps convert = new Convert_pixel_gps(this.map);//may be bug on resize
+			Convert_pixel_gps convert = new Convert_pixel_gps(this.map);// may be bug on resize
 			Point3D gps = new Point3D(convert.convertPixeltoGPS(pixel));
-			
+
 			Pacman pac = new Pacman(gps.x(), gps.y(), this.game.getPacmans().size());
 			this.game.getPacmans().add(pac);
 		}
@@ -241,9 +242,9 @@ public class MyFrame extends JFrame implements MouseListener {
 			int x = e.getX();
 			int y = e.getY();
 			Pixel pixel = new Pixel(x, y);
-			Convert_pixel_gps convert = new Convert_pixel_gps(this.map);//may be bug on resize
+			Convert_pixel_gps convert = new Convert_pixel_gps(this.map);// may be bug on resize
 			Point3D gps = new Point3D(convert.convertPixeltoGPS(pixel));
-			
+
 			Fruit fruit = new Fruit(gps.x(), gps.y(), this.game.getFruits().size());
 			this.game.getFruits().add(fruit);
 		}
