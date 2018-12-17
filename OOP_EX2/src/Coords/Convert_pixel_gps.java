@@ -33,12 +33,12 @@ public class Convert_pixel_gps {
 		distanceHeight = coords.distance3d(map.getTopLeft(), botLeft);
 		distanceHeight /= this.map.getHeight();
 		
-		/* inding Width in meters */
+		/* Finding Width in meters */
 		distanceWidth = coords.distance3d(botLeft, map.getBotRight());
 		distanceWidth /= this.map.getWidth();
 
-		this.ratioHeight = distanceHeight;
-		this.ratioWidth = distanceWidth;
+		this.ratioHeight =distanceWidth; 
+		this.ratioWidth = distanceHeight;
 	}
 
 	public Pixel convertGPStoPixel(Point3D gps) {
