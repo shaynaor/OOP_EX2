@@ -1,4 +1,5 @@
 package GIS;
+
 import java.text.ParseException;
 import java.util.Arrays;
 
@@ -11,17 +12,24 @@ public class Pacman implements GIS_element {
 	private Point3D gps;
 	private Meta_data metaData;
 
-
 	public Pacman(String[] line) throws ParseException {
-		double lat=0, lon=0, alt =0;
+		double lat = 0, lon = 0, alt = 0;
 		lat = Double.parseDouble(line[2]);
 		lon = Double.parseDouble(line[3]);
 		alt = Double.parseDouble(line[4]);
 		this.gps = new Point3D(lat, lon, alt);
-		
+
 		this.metaData = new Mdata_game(line);
 	}
-	
+
+	public Pacman(int x, int y, int id) {
+		double lat = x, lon = y, alt = 0;
+		this.gps = new Point3D(lat, lon, alt);
+		
+		this.metaData = new Mdata_game(id, true);
+
+	}
+
 	public Point3D getGps() {
 		return gps;
 	}
@@ -29,7 +37,7 @@ public class Pacman implements GIS_element {
 	public Meta_data getMetaData() {
 		return metaData;
 	}
-	
+
 	public Geom_element getGeom() {
 		return this.gps;
 	}
@@ -38,17 +46,13 @@ public class Pacman implements GIS_element {
 		return this.metaData;
 	}
 
-
 	/**
 	 * Transforms a gps point by a vector point in meters.
 	 */
-	
+
 	public void translate(Point3D vec) {
 		MyCoords cor = new MyCoords();
 		this.gps = cor.add(this.gps, vec);
 	}
-	
-	
-
 
 }

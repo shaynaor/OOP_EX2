@@ -15,8 +15,6 @@ import File_format.MyFileUtils;
 public class Game {
 	private ArrayList<Fruit> fruits;// contains all the Fruits.
 	private ArrayList<Pacman> pacmans;// contains all the Pacmans.
-	private int numFruit;
-	private int numPacmans;
 
 	/**
 	 * 
@@ -49,7 +47,6 @@ public class Game {
 				try {
 					Pacman pac = new Pacman(line);
 					this.pacmans.add(pac);
-					this.numPacmans++;
 				
 				} catch (ParseException e) {
 					System.err.println("The csv file is corrupted");
@@ -64,7 +61,6 @@ public class Game {
 				try {
 					Fruit fruit = new Fruit(line);
 					this.fruits.add(fruit);
-					this.numFruit++;
 					
 				} catch (ParseException e) {
 					System.err.println("The csv file is corrupted");
@@ -77,6 +73,11 @@ public class Game {
 		}
 
 	}
+	
+	public Game() {
+		this.fruits = new ArrayList<Fruit>();
+		this.pacmans = new ArrayList<Pacman>();
+	}
 
 	public ArrayList<Fruit> getFruits() {
 		return fruits;
@@ -84,14 +85,6 @@ public class Game {
 
 	public ArrayList<Pacman> getPacmans() {
 		return pacmans;
-	}
-
-	public int getNumFruit() {
-		return numFruit;
-	}
-
-	public int getNumPacmans() {
-		return numPacmans;
 	}
 
 }
