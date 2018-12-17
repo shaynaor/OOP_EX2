@@ -20,7 +20,7 @@ public class Fruit implements GIS_element {
 		this.metaData = new Mdata_game(line);
 	}
 	
-	public Fruit(int x, int y, int id) {
+	public Fruit(double x, double y, int id) {
 		double lat = x, lon = y, alt = 0;
 		this.gps = new Point3D(lat, lon, alt);
 		

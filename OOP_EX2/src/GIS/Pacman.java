@@ -22,12 +22,11 @@ public class Pacman implements GIS_element {
 		this.metaData = new Mdata_game(line);
 	}
 
-	public Pacman(int x, int y, int id) {
+	public Pacman(double x, double y, int id) {
 		double lat = x, lon = y, alt = 0;
 		this.gps = new Point3D(lat, lon, alt);
-		
-		this.metaData = new Mdata_game(id, true);
 
+		this.metaData = new Mdata_game(id, true);
 	}
 
 	public Point3D getGps() {

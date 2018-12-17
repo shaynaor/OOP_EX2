@@ -19,9 +19,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
+import Coords.Convert_pixel_gps;
 import GIS.Fruit;
 import GIS.Game;
 import GIS.Pacman;
+import Geom.Pixel;
 import Geom.Point3D;
 
 public class MyFrame extends JFrame implements MouseListener {
@@ -29,11 +31,15 @@ public class MyFrame extends JFrame implements MouseListener {
 	private Game game;
 	private boolean isPacman;
 	private boolean isFruit;
+	private Map map;
 
 	public MyFrame() {
 		this.isPacman = false;
-		this.setFruit(false);
+		this.isFruit = false;
 		this.game = new Game();
+		this.map = new Map();
+		this.myImage = map.getMyImage();
+		
 		initGUI();
 		this.addMouseListener(this);
 	}
@@ -66,13 +72,6 @@ public class MyFrame extends JFrame implements MouseListener {
 		setMenuBar(menuBar);
 		/* End to create the menu bar. */
 
-		/* INIT myImge filed */
-		try {
-			myImage = ImageIO.read(new File("C:\\Users\\User\\Desktop\\מונחה- מטלה 3\\Ex3\\Ariel1.png"));
-		} catch (IOException e) {
-			System.err.println("ERROR: incorrect path for picture!");
-			e.printStackTrace();
-		}
 
 		/*
 		 * Add action to load File button
@@ -82,10 +81,11 @@ public class MyFrame extends JFrame implements MouseListener {
 		loadFile.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser openFile = new JFileChooser();
-				openFile.showOpenDialog(null);
+				/* Cannot draw fruits and pacman */
 				setPacman(false);
 				setFruit(false);
+				
+				 ChooseButtonLoadFile(arg0);
 			}
 		});
 
@@ -144,28 +144,57 @@ public class MyFrame extends JFrame implements MouseListener {
 		});
 
 	}
-
+	/* Load */
+	private void ChooseButtonLoadFile(ActionEvent e) {
+		/* Open load file chooser */
+		JFileChooser openFile = new JFileChooser();
+		int returnValue = openFile.showOpenDialog(null);
+		
+		/* If the file selected*/
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = openFile.getSelectedFile();//the file that selected.
+			String filePath = selectedFile.getPath();//the path to the file.
+			
+			/* If the file that selected is csv file */
+			if(filePath.contains(".csv")) {
+				/* Clear the game board */
+				this.game.getFruits().clear();
+				this.game.getPacmans().clear();
+				
+				/* Load the new game to the game board */
+				this.game = new Game(filePath);
+				repaint();
+			}
+		}
+	}
+	int i = 0;
 	public void paint(Graphics g) {
 		g.drawImage(this.myImage, -9, -9, this.getWidth(), this.getHeight(), this);
-
+		System.out.println(i++);
 		/* Draw pacmans */
-		Iterator<Pacman> pacIt = game.getPacmans().iterator();
+		Iterator<Pacman> pacIt = this.game.getPacmans().iterator();
+		Convert_pixel_gps convert = new Convert_pixel_gps(this.map);
+
 		while (pacIt.hasNext()) {
 			Pacman pac = pacIt.next();
+			Pixel pixel = new Pixel(0, 0);
+			pixel = convert.convertGPStoPixel(pac.getGps());
 			int r = 30;
-			int x = pac.getGps().ix() - (r / 2);
-			int y = pac.getGps().iy() - (r / 2);
+			int x = pixel.getX() - (r / 2);
+			int y = pixel.getY() - (r / 2);
 			g.setColor(Color.yellow);
 			g.fillOval(x, y, r, r);
 		}
-		
+
 		/* Draw fruits */
-		Iterator<Fruit> fruitIt = game.getFruits().iterator();
+		Iterator<Fruit> fruitIt = this.game.getFruits().iterator();
 		while (fruitIt.hasNext()) {
 			Fruit fruit = fruitIt.next();
+			Pixel pixel = new Pixel(0, 0);
+			pixel = convert.convertGPStoPixel(fruit.getGps());
 			int r = 15;
-			int x = fruit.getGps().ix() - (r / 2);
-			int y = fruit.getGps().iy() - (r / 2);
+			int x = pixel.getX() - (r / 2);
+			int y = pixel.getY() - (r / 2);
 			g.setColor(Color.red);
 			g.fillOval(x, y, r, r);
 		}
@@ -200,14 +229,22 @@ public class MyFrame extends JFrame implements MouseListener {
 		if (isPacman) {
 			int x = e.getX();
 			int y = e.getY();
-			Pacman pac = new Pacman(x, y, this.game.getPacmans().size());
+			Pixel pixel = new Pixel(x, y);
+			Convert_pixel_gps convert = new Convert_pixel_gps(this.map);//may be bug on resize
+			Point3D gps = new Point3D(convert.convertPixeltoGPS(pixel));
+			
+			Pacman pac = new Pacman(gps.x(), gps.y(), this.game.getPacmans().size());
 			this.game.getPacmans().add(pac);
 		}
 
 		if (isFruit) {
 			int x = e.getX();
 			int y = e.getY();
-			Fruit fruit = new Fruit(x, y, this.game.getFruits().size());
+			Pixel pixel = new Pixel(x, y);
+			Convert_pixel_gps convert = new Convert_pixel_gps(this.map);//may be bug on resize
+			Point3D gps = new Point3D(convert.convertPixeltoGPS(pixel));
+			
+			Fruit fruit = new Fruit(gps.x(), gps.y(), this.game.getFruits().size());
 			this.game.getFruits().add(fruit);
 		}
 
