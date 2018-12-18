@@ -66,7 +66,7 @@ public class ShortestPathAlgo {
 		   //=======Eating fruit adding to path=======
             game.getFruits().get(index).eaten();   
             path.getPath().add(fruitMin);     
-			
+			path.addDistance(min);
             //==========Reseting values=======
             CurrentPoint = fruitMin.getGps();
             itFruit = game.getFruits().iterator();

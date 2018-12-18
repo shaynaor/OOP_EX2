@@ -177,6 +177,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		ShortestPathAlgo algo = new ShortestPathAlgo(this.game);    // DELEEEETTTTTTTEEEEEEEEEEEEEE THIIISSSSS
 		this.algo = algo;
 		this.isPath = true;
+		System.out.println(this.algo.getPath().getDistance());
 		
 	}
 
@@ -220,7 +221,7 @@ public class MyFrame extends JFrame implements MouseListener {
 			Point3D first = new Point3D(0,0,0);
 			Point3D second = new Point3D(0,0,0);
 			
-			for(int i = 0 ;i < (algo.getPath().getPath().size())-1 ;i++) {
+			for(int i = 0 ;i < (algo.getPath().getPath().size())-1 ;i++) {   //if path.size =1 then bug
 			
 				if(i == 0) {
 					first = ((Pacman)(algo.getPath().getPath().get(0))).getGps();
