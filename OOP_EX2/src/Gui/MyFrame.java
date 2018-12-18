@@ -72,8 +72,17 @@ public class MyFrame extends JFrame implements MouseListener {
 
 		inputMenu.add(pacmanInput);
 		inputMenu.add(fruitInput);
-
+		
 		menuBar.add(inputMenu);
+		
+		Menu simulationMenu = new Menu("Simulation");
+		MenuItem startSimulation = new MenuItem("start");
+		//MenuItem fastStartSimulation = new MenuItem("fast start");
+		
+		simulationMenu.add(startSimulation);
+		//simulationMenu.add(fastStartSimulation);
+		
+		menuBar.add(simulationMenu);
 
 		setMenuBar(menuBar);
 		/* End to create the menu bar. */
@@ -146,6 +155,16 @@ public class MyFrame extends JFrame implements MouseListener {
 				setPacman(false);
 			}
 		});
+		
+		/* Add action to start simulation button */
+		startSimulation.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				setFruit(false);
+				setPacman(false);
+				startAlgo(arg0);
+			}
+		});
 
 	}
 
@@ -171,13 +190,10 @@ public class MyFrame extends JFrame implements MouseListener {
 				repaint();
 			}
 		}
-		ShortestPathAlgo algo = new ShortestPathAlgo(this.game); // DELEEEETTTTTTTEEEEEEEEEEEEEE THIIISSSSS
-		this.algo = algo;
-		this.isPath = true;
-		System.out.println("final distance: " + this.algo.getPath().getDistance());
-		System.out.println("final time: " + this.algo.getPath().finalTime());
 
 	}
+	
+	/* save Button */
 	/*https://stackoverflow.com/questions/10471396/appending-the-file-type-to-a-file-in-java-using-jfilechooser
 	 * https://stackoverflow.com/questions/13905298/how-to-save-a-txt-file-using-jfilechooser */
 	private void ChooseButtonSaveFile(ActionEvent e) {
@@ -201,6 +217,15 @@ public class MyFrame extends JFrame implements MouseListener {
 
 		}
 
+	}
+	
+	private void startAlgo(ActionEvent e) {
+		ShortestPathAlgo algo = new ShortestPathAlgo(this.game); // DELEEEETTTTTTTEEEEEEEEEEEEEE THIIISSSSS
+		this.algo = algo;
+		this.isPath = true;
+		System.out.println("final distance: " + this.algo.getPath().getDistance());
+		System.out.println("final time: " + this.algo.getPath().finalTime());
+		repaint();
 	}
 
 	public void paint(Graphics g) {
