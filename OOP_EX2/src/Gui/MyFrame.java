@@ -33,13 +33,20 @@ public class MyFrame extends JFrame implements MouseListener {
 	private boolean isPacman;
 	private boolean isFruit;
 	private Map map;
-
+    
+	
+	private boolean isPath;        // added might need to delete later
+    private ShortestPathAlgo algo;              //same
+    
 	public MyFrame() {
 		this.isPacman = false;
 		this.isFruit = false;
 		this.game = new Game();
 		this.map = new Map();
 		this.myImage = map.getMyImage();
+		this.isPath = false;
+
+		
 
 		initGUI();
 		this.addMouseListener(this);
@@ -168,7 +175,8 @@ public class MyFrame extends JFrame implements MouseListener {
 			}
 		}
 		ShortestPathAlgo algo = new ShortestPathAlgo(this.game);    // DELEEEETTTTTTTEEEEEEEEEEEEEE THIIISSSSS
-		
+		this.algo = algo;
+		this.isPath = true;
 		
 	}
 
@@ -204,6 +212,32 @@ public class MyFrame extends JFrame implements MouseListener {
 			g.setColor(Color.red);
 			g.fillOval(x, y, r, r);
 		}
+		
+		/* Draw lines */
+		if (isPath) {
+			Pixel a = new Pixel(0,0);
+			Pixel b = new Pixel(0,0);
+			Point3D first = new Point3D(0,0,0);
+			Point3D second = new Point3D(0,0,0);
+			
+			for(int i = 0 ;i < (algo.getPath().getPath().size())-1 ;i++) {
+			
+				if(i == 0) {
+					first = ((Pacman)(algo.getPath().getPath().get(0))).getGps();
+					second = ((Fruit)(algo.getPath().getPath().get(1))).getGps();
+				}
+				else {
+					first = ((Fruit)(algo.getPath().getPath().get(i))).getGps();
+					second = ((Fruit)(algo.getPath().getPath().get(i+1))).getGps();
+				}
+				
+				a = convert.convertGPStoPixel(first);
+				b = convert.convertGPStoPixel(second);
+                
+				g.setColor(Color.GREEN);
+				g.drawLine(a.getX(), a.getY(), b.getX(),b.getY());
+			}
+		}
 	}
 
 	public BufferedImage getMyImage() {
@@ -236,7 +270,7 @@ public class MyFrame extends JFrame implements MouseListener {
 			int x = e.getX();
 			int y = e.getY();
 			Pixel pixel = new Pixel(x, y);
-			Convert_pixel_gps convert = new Convert_pixel_gps(this.map);// may be bug on resize
+			Convert_pixel_gps convert = new Convert_pixel_gps(this.map);
 			Point3D gps = new Point3D(convert.convertPixeltoGPS(pixel));
 
 			Pacman pac = new Pacman(gps.x(), gps.y(), this.game.getPacmans().size());
@@ -247,12 +281,14 @@ public class MyFrame extends JFrame implements MouseListener {
 			int x = e.getX();
 			int y = e.getY();
 			Pixel pixel = new Pixel(x, y);
-			Convert_pixel_gps convert = new Convert_pixel_gps(this.map);// may be bug on resize
+			Convert_pixel_gps convert = new Convert_pixel_gps(this.map);
 			Point3D gps = new Point3D(convert.convertPixeltoGPS(pixel));
 
 			Fruit fruit = new Fruit(gps.x(), gps.y(), this.game.getFruits().size());
 			this.game.getFruits().add(fruit);
 		}
+		
+	
 
 		repaint();
 	}

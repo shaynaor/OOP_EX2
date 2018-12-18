@@ -13,13 +13,19 @@ import Geom.Point3D;
 public class ShortestPathAlgo {
 
 	private Game game;
-
+    private Path path;
 
 
 	public ShortestPathAlgo(Game game) {
 		this.game = game;
 		findPath() ;
 
+	}
+
+
+
+	public Path getPath() {
+		return path;
 	}
 
 
@@ -69,6 +75,7 @@ public class ShortestPathAlgo {
 			min = Double.MAX_VALUE;
 			distance = 0;
 		}
+		this.path = path;
  
 
 
@@ -76,13 +83,13 @@ public class ShortestPathAlgo {
 
 
 		//=============print=============================
-		        for(int i =0 ;i<path.getPath().size();i++) {
-		        	if(path.getPath().get(i) instanceof Pacman) {
-		        	 System.out.println(((Pacman)(path.getPath().get(i))).getGps()+" Pac");
-		        	}
-		        	else
-		        		 System.out.println(((Fruit)(path.getPath().get(i))).getGps()+" Fruit "+ (i-1));
-		        }
+//		        for(int i =0 ;i<path.getPath().size();i++) {
+//		        	if(path.getPath().get(i) instanceof Pacman) {
+//		        	 System.out.println(((Pacman)(path.getPath().get(i))).getGps()+" Pac");
+//		        	}
+//		        	else
+//		        		 System.out.println(((Fruit)(path.getPath().get(i))).getGps()+" Fruit "+ (i-1));
+//		        }
 
 
 
