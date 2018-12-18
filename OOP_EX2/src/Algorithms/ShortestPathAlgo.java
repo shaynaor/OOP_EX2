@@ -8,16 +8,18 @@ import GIS.Fruit;
 import GIS.Game;
 import GIS.Pacman;
 import GIS.Path;
+import GIS.Solution;
 import Geom.Point3D;
 
 public class ShortestPathAlgo {
 
 	private Game game;
     private Path path;
-
+    private Solution solution;
 
 	public ShortestPathAlgo(Game game) {
 		this.game = game;
+		this.solution = new Solution();
 		findPath() ;
 
 	}
@@ -77,7 +79,7 @@ public class ShortestPathAlgo {
 			distance = 0;
 		}
 		this.path = path;
- 
+		this.solution.getSolution().add(path);
 
 
 
@@ -97,6 +99,12 @@ public class ShortestPathAlgo {
 
 
 
+	}
+
+
+
+	public Solution getSolution() {
+		return solution;
 	}
 
 }

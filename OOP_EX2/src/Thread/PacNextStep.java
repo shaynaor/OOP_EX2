@@ -1,5 +1,6 @@
 package Thread;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import Coords.Range;
@@ -13,6 +14,7 @@ import Geom.Point3D;
 public class PacNextStep implements Runnable {
 
 	private Solution solution;
+	private ArrayList<Point3D> nextPacmans;
 
 	public PacNextStep(Solution solution) {
 		this.solution = new Solution();
@@ -23,23 +25,31 @@ public class PacNextStep implements Runnable {
 		Iterator<Path> itPath = this.solution.getSolution().iterator();
 		Fruit[] fruitArr = new Fruit[2];
 		Range range = new Range();
-		Point3D pointNext = new Point3D(0,0,0);
-		
-		/* While  */
-		while (currentTime <= this.solution.getTime()) {
+		this.nextPacmans = new ArrayList<Point3D>();
+		Point3D pointNext = new Point3D(0, 0, 0);
 
+		/* While */
+		while (currentTime <= this.solution.getTime()) {
+			/* Goes over the paths */
 			while (itPath.hasNext()) {
 				Path path = itPath.next();
 				fruitArr = findBounds(currentTime, path);
 				pointNext = range.getPosInTime(currentTime, fruitArr[0], fruitArr[1]);
-				
+				this.nextPacmans.add(pointNext);
+
 			}
 
 			// ==========Reseting values=======
-			itPath = this.solution.getSolution().iterator();
 			currentTime = currentTime + 0.1;
 		}
 
+	}
+	
+	public ArrayList<Point3D> nextPacmansFunc(){
+		
+		
+		
+		return null;
 	}
 
 	/**
@@ -75,11 +85,9 @@ public class PacNextStep implements Runnable {
 		}
 		return limit;
 	}
-	// Range range = new Range();
-	// Point3D t = new Point3D(range.getPosInTime(40,
-	// (Fruit)algo.getPath().getPath().get(1),
-	// (Fruit)algo.getPath().getPath().get(2)));
-	// Fruit test = new Fruit(t.x(),t.y(),0);
-	// game.getFruits().add(test);
+
+	public ArrayList<Point3D> getNextPacmans() {
+		return nextPacmans;
+	}
 
 }

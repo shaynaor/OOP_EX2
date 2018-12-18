@@ -28,13 +28,16 @@ import GIS.Game;
 import GIS.Pacman;
 import Geom.Pixel;
 import Geom.Point3D;
+import Thread.PacNextStep;
 
 public class MyFrame extends JFrame implements MouseListener {
 	private BufferedImage myImage;
 	private Game game;
 	private boolean isPacman;
 	private boolean isFruit;
+	private boolean isSimulation;
 	private Map map;
+	private ArrayList<Point3D> nextPacman;
 
 	private boolean isPath; // added might need to delete later
 	private ShortestPathAlgo algo; // same
@@ -46,6 +49,8 @@ public class MyFrame extends JFrame implements MouseListener {
 		this.map = new Map();
 		this.myImage = map.getMyImage();
 		this.isPath = false;
+		this.isSimulation = false;
+		this.nextPacman = new ArrayList<Point3D>();
 
 		initGUI();
 		this.addMouseListener(this);
@@ -73,16 +78,16 @@ public class MyFrame extends JFrame implements MouseListener {
 
 		inputMenu.add(pacmanInput);
 		inputMenu.add(fruitInput);
-		
+
 		menuBar.add(inputMenu);
-		
+
 		Menu simulationMenu = new Menu("Simulation");
 		MenuItem startSimulation = new MenuItem("start");
-		//MenuItem fastStartSimulation = new MenuItem("fast start");
-		
+		// MenuItem fastStartSimulation = new MenuItem("fast start");
+
 		simulationMenu.add(startSimulation);
-		//simulationMenu.add(fastStartSimulation);
-		
+		// simulationMenu.add(fastStartSimulation);
+
 		menuBar.add(simulationMenu);
 
 		setMenuBar(menuBar);
@@ -156,7 +161,7 @@ public class MyFrame extends JFrame implements MouseListener {
 				setPacman(false);
 			}
 		});
-		
+
 		/* Add action to start simulation button */
 		startSimulation.addActionListener(new ActionListener() {
 
@@ -193,10 +198,14 @@ public class MyFrame extends JFrame implements MouseListener {
 		}
 
 	}
-	
+
 	/* save Button */
-	/*https://stackoverflow.com/questions/10471396/appending-the-file-type-to-a-file-in-java-using-jfilechooser
-	 * https://stackoverflow.com/questions/13905298/how-to-save-a-txt-file-using-jfilechooser */
+	/*
+	 * https://stackoverflow.com/questions/10471396/appending-the-file-type-to-a-
+	 * file-in-java-using-jfilechooser
+	 * https://stackoverflow.com/questions/13905298/how-to-save-a-txt-file-using-
+	 * jfilechooser
+	 */
 	private void ChooseButtonSaveFile(ActionEvent e) {
 
 		/* Open save file chooser */
@@ -208,28 +217,33 @@ public class MyFrame extends JFrame implements MouseListener {
 		if (result == chooser.APPROVE_OPTION) {
 			File f = chooser.getSelectedFile();
 			String filePath = f.getAbsolutePath();
-			/* Check if the file name end with ".csv"  */
-			if(!filePath.endsWith(".csv")) {
-			    f = new File(filePath + ".csv");
-			    Game2CSV creatGameCSV = new Game2CSV(this.game, f);
-			}else {
+			/* Check if the file name end with ".csv" */
+			if (!filePath.endsWith(".csv")) {
+				f = new File(filePath + ".csv");
+				Game2CSV creatGameCSV = new Game2CSV(this.game, f);
+			} else {
 				Game2CSV creatGameCSV = new Game2CSV(this.game, f);
 			}
 
 		}
 
 	}
-	
+
 	private void startAlgo(ActionEvent e) {
-		ShortestPathAlgo algo = new ShortestPathAlgo(this.game); 
+		ShortestPathAlgo algo = new ShortestPathAlgo(this.game);
 		this.algo = algo;
-		this.isPath = true;   // may be delete
+		this.isPath = true; // may be delete
+		PacNextStep thread = new PacNextStep(this.algo.getSolution());
+		Thread t1 = new Thread(thread);
 		
+		t1.start();
+		
+		this.nextPacman = thread.getNextPacmans();// may bug the tread not ending.
+
 		System.out.println("final distance: " + this.algo.getPath().getDistance());
 		System.out.println("final time: " + this.algo.getPath().finalTime());
-		
-		
-	
+
+		this.isSimulation = true;
 		repaint();
 	}
 
@@ -241,15 +255,31 @@ public class MyFrame extends JFrame implements MouseListener {
 		/* Draw pacmans */
 		Iterator<Pacman> pacIt = this.game.getPacmans().iterator();
 		Convert_pixel_gps convert = new Convert_pixel_gps(this.map);
-		while (pacIt.hasNext()) {
-			Pacman pac = pacIt.next();
-			Pixel pixel = new Pixel(0, 0);
-			pixel = convert.convertGPStoPixel(pac.getGps());
-			int r = 30;
-			int x = pixel.getX() - (r / 2);
-			int y = pixel.getY() - (r / 2);
-			g.setColor(Color.yellow);
-			g.fillOval(x, y, r, r);
+		
+		if (!isSimulation) {
+			while (pacIt.hasNext()) {
+				Pacman pac = pacIt.next();
+				Pixel pixel = new Pixel(0, 0);
+				pixel = convert.convertGPStoPixel(pac.getGps());
+				int r = 30;
+				int x = pixel.getX() - (r / 2);
+				int y = pixel.getY() - (r / 2);
+				g.setColor(Color.yellow);
+				g.fillOval(x, y, r, r);
+			}
+		}
+		if(isSimulation) {
+			Iterator<Point3D> pointIt = this.nextPacman.iterator();
+			while(pointIt.hasNext()) {
+				Point3D point = pointIt.next();
+				Pixel pixel = new Pixel(0, 0);
+				pixel = convert.convertGPStoPixel(point);
+				int r = 30;
+				int x = pixel.getX() - (r / 2);
+				int y = pixel.getY() - (r / 2);
+				g.setColor(Color.yellow);
+				g.fillOval(x, y, r, r);
+			}
 		}
 
 		/* Draw fruits */
