@@ -10,7 +10,7 @@ import Geom.Point3D;
 public class Pacman implements GIS_element {
 
 	private Point3D gps;
-	private Meta_data metaData;
+	private Mdata_game metaData;
 
 	public Pacman(String[] line) throws ParseException {
 		double lat = 0, lon = 0, alt = 0;
@@ -33,18 +33,18 @@ public class Pacman implements GIS_element {
 		return gps;
 	}
 
-	public Meta_data getMetaData() {
+	public Mdata_game getMetaData() {
 		return metaData;
 	}
 
 	public Geom_element getGeom() {
 		return this.gps;
 	}
-
+	
 	public Meta_data getData() {
 		return this.metaData;
 	}
-
+	
 	/**
 	 * Transforms a gps point by a vector point in meters.
 	 */
@@ -53,5 +53,8 @@ public class Pacman implements GIS_element {
 		MyCoords cor = new MyCoords();
 		this.gps = cor.add(this.gps, vec);
 	}
+
+	
+
 
 }

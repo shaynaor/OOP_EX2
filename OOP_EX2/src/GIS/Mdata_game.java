@@ -37,4 +37,16 @@ public class Mdata_game implements Meta_data {
 		return null;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public double getSpeedWeight() {
+		return speedWeight;
+	}
+
+	public double getRadius() {
+		return radius;
+	} 
 }
+

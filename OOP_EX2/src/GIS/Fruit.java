@@ -8,7 +8,7 @@ import Geom.Point3D;
 
 public class Fruit implements GIS_element {
 	private Point3D gps;
-	private Meta_data metaData;
+	private Mdata_game metaData;
 	private boolean eaten;
 
 	public Fruit(String[] line) throws ParseException {
@@ -32,7 +32,7 @@ public class Fruit implements GIS_element {
 		return gps;
 	}
 
-	public Meta_data getMetaData() {
+	public Mdata_game getMetaData() {
 		return metaData;
 	}
 

@@ -20,6 +20,14 @@ public class Path {
 		this.fruitsEaten = 0;
 	}
 
+	
+	public void addDistance(double x) {
+		this.distance = this.distance + x;
+	}
+	
+	
+	
+	//=======Geters======
 	public ArrayList<GIS_element> getPath() {
 		return path;
 	}
