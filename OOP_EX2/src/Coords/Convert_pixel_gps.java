@@ -5,13 +5,7 @@ import Geom.Point3D;
 import Gui.Map;
 
 public class Convert_pixel_gps {
-	public double getRatioHeight() {
-		return ratioHeight;
-	}
 
-	public double getRatioWidth() {
-		return ratioWidth;
-	}
 
 	private Map map;
 	private double ratioHeight;

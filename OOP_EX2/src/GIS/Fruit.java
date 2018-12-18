@@ -9,6 +9,7 @@ import Geom.Point3D;
 public class Fruit implements GIS_element {
 	private Point3D gps;
 	private Meta_data metaData;
+	private boolean eaten;
 
 	public Fruit(String[] line) throws ParseException {
 		double lat = 0, lon = 0, alt = 0;
@@ -16,7 +17,7 @@ public class Fruit implements GIS_element {
 		lon = Double.parseDouble(line[3]);
 		alt = Double.parseDouble(line[4]);
 		this.gps = new Point3D(lat, lon, alt);
-
+        this.eaten = false;
 		this.metaData = new Mdata_game(line);
 	}
 	
@@ -41,6 +42,18 @@ public class Fruit implements GIS_element {
 
 	public Meta_data getData() {
 		return this.metaData;
+	}
+	
+	public boolean getEaten() {
+		return this.eaten;
+	}
+	
+	public void eaten() {
+		setEaten(true);
+	}
+    
+	private void setEaten(boolean flag) {
+		this.eaten = flag;
 	}
 
 	/**
