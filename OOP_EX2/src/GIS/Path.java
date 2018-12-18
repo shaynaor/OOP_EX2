@@ -11,7 +11,7 @@ public class Path {
 	private double distance;
 	private double score;
 	private double fruitsEaten;
-
+	
 	public Path() {
 		this.path = new ArrayList<GIS_element>();
 		this.time = 0;
@@ -23,6 +23,10 @@ public class Path {
 	
 	public void addDistance(double x) {
 		this.distance = this.distance + x;
+	}
+	
+	public double finalTime() {
+		return this.distance/((Pacman)(path.get(0))).getMetaData().getSpeedWeight();
 	}
 	
 	

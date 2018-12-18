@@ -177,7 +177,8 @@ public class MyFrame extends JFrame implements MouseListener {
 		ShortestPathAlgo algo = new ShortestPathAlgo(this.game);    // DELEEEETTTTTTTEEEEEEEEEEEEEE THIIISSSSS
 		this.algo = algo;
 		this.isPath = true;
-		System.out.println(this.algo.getPath().getDistance());
+		System.out.println("final distance: "+this.algo.getPath().getDistance());
+		System.out.println("final time: "+this.algo.getPath().finalTime());
 		
 	}
 
