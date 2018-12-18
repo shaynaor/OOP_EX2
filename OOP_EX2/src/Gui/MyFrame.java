@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 
 import Algorithms.ShortestPathAlgo;
 import Coords.Convert_pixel_gps;
+import Coords.Range;
 import File_format.Game2CSV;
 import GIS.Fruit;
 import GIS.Game;
@@ -220,11 +221,15 @@ public class MyFrame extends JFrame implements MouseListener {
 	}
 	
 	private void startAlgo(ActionEvent e) {
-		ShortestPathAlgo algo = new ShortestPathAlgo(this.game); // DELEEEETTTTTTTEEEEEEEEEEEEEE THIIISSSSS
+		ShortestPathAlgo algo = new ShortestPathAlgo(this.game); 
 		this.algo = algo;
-		this.isPath = true;
+		this.isPath = true;   // may be delete
+		
 		System.out.println("final distance: " + this.algo.getPath().getDistance());
 		System.out.println("final time: " + this.algo.getPath().finalTime());
+		
+		
+	
 		repaint();
 	}
 

@@ -10,6 +10,9 @@ public class Fruit implements GIS_element {
 	private Point3D gps;
 	private Mdata_game metaData;
 	private boolean eaten;
+	private double timeEaten;
+
+
 
 	public Fruit(String[] line) throws ParseException {
 		double lat = 0, lon = 0, alt = 0;
@@ -48,12 +51,17 @@ public class Fruit implements GIS_element {
 		return this.eaten;
 	}
 	
-	public void eaten() {
+	public void eaten(double time) {
 		setEaten(true);
+		this.timeEaten = time;
 	}
     
 	private void setEaten(boolean flag) {
 		this.eaten = flag;
+	}
+
+	public double getTimeEaten() {
+		return timeEaten;
 	}
 
 	/**

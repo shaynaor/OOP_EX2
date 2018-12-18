@@ -16,6 +16,14 @@ public class Convert_pixel_gps {
 		RpixelMeters();
 	}
 
+	public double getRatioHeight() {
+		return ratioHeight;
+	}
+
+	public double getRatioWidth() {
+		return ratioWidth;
+	}
+
 	private void RpixelMeters() {
 
 		Point3D botLeft = new Point3D(map.getBotRight().x(), map.getTopLeft().y());

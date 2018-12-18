@@ -43,7 +43,7 @@ public class ShortestPathAlgo {
 		MyCoords convert = new MyCoords();
 		Fruit fruitMin = new Fruit(0,0,0);
 		Point3D CurrentPoint = pacman.getGps();
-        
+        double time = 0;
         path.getPath().add(pacman);
         
         //====== Find closest fruit to pacman , eat it , move pack man to the fruits position, repeat======
@@ -64,7 +64,8 @@ public class ShortestPathAlgo {
 				}
 			}
 		   //=======Eating fruit adding to path=======
-            game.getFruits().get(index).eaten();   
+			time = time + (min/pacman.getMetaData().getSpeedWeight());
+            game.getFruits().get(index).eaten(time);   
             path.getPath().add(fruitMin);     
 			path.addDistance(min);
             //==========Reseting values=======
@@ -82,14 +83,16 @@ public class ShortestPathAlgo {
 
 
 
-		//=============print=============================
-//		        for(int i =0 ;i<path.getPath().size();i++) {
-//		        	if(path.getPath().get(i) instanceof Pacman) {
-//		        	 System.out.println(((Pacman)(path.getPath().get(i))).getGps()+" Pac");
-//		        	}
-//		        	else
-//		        		 System.out.println(((Fruit)(path.getPath().get(i))).getGps()+" Fruit "+ (i-1));
-//		        }
+	//	=============print=============================
+		        for(int i =0 ;i<path.getPath().size();i++) {
+		        	if(path.getPath().get(i) instanceof Pacman) {
+		        	 System.out.println(((Pacman)(path.getPath().get(i))).getGps()+" Pac");
+		        	}
+		        	else {
+		        		 System.out.println(((Fruit)(path.getPath().get(i))).getGps()+" Fruit "+ (i-1));
+		        	     System.out.println("Time eaten: "+((Fruit)(path.getPath().get(i))).getTimeEaten() );
+		        	}
+		        }
 
 
 
