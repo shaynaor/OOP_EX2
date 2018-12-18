@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 
 import Algorithms.ShortestPathAlgo;
 import Coords.Convert_pixel_gps;
+import File_format.Game2CSV;
 import GIS.Fruit;
 import GIS.Game;
 import GIS.Pacman;
@@ -33,11 +34,10 @@ public class MyFrame extends JFrame implements MouseListener {
 	private boolean isPacman;
 	private boolean isFruit;
 	private Map map;
-    
-	
-	private boolean isPath;        // added might need to delete later
-    private ShortestPathAlgo algo;              //same
-    
+
+	private boolean isPath; // added might need to delete later
+	private ShortestPathAlgo algo; // same
+
 	public MyFrame() {
 		this.isPacman = false;
 		this.isFruit = false;
@@ -45,8 +45,6 @@ public class MyFrame extends JFrame implements MouseListener {
 		this.map = new Map();
 		this.myImage = map.getMyImage();
 		this.isPath = false;
-
-		
 
 		initGUI();
 		this.addMouseListener(this);
@@ -104,10 +102,9 @@ public class MyFrame extends JFrame implements MouseListener {
 		saveFile.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser saveFile = new JFileChooser();
-				saveFile.showSaveDialog(null);
 				setPacman(false);
 				setFruit(false);
+				ChooseButtonSaveFile(arg0);
 			}
 		});
 
@@ -174,14 +171,37 @@ public class MyFrame extends JFrame implements MouseListener {
 				repaint();
 			}
 		}
-		ShortestPathAlgo algo = new ShortestPathAlgo(this.game);    // DELEEEETTTTTTTEEEEEEEEEEEEEE THIIISSSSS
+		ShortestPathAlgo algo = new ShortestPathAlgo(this.game); // DELEEEETTTTTTTEEEEEEEEEEEEEE THIIISSSSS
 		this.algo = algo;
 		this.isPath = true;
-		System.out.println("final distance: "+this.algo.getPath().getDistance());
-		System.out.println("final time: "+this.algo.getPath().finalTime());
-		
-	}
+		System.out.println("final distance: " + this.algo.getPath().getDistance());
+		System.out.println("final time: " + this.algo.getPath().finalTime());
 
+	}
+	/*https://stackoverflow.com/questions/10471396/appending-the-file-type-to-a-file-in-java-using-jfilechooser
+	 * https://stackoverflow.com/questions/13905298/how-to-save-a-txt-file-using-jfilechooser */
+	private void ChooseButtonSaveFile(ActionEvent e) {
+
+		/* Open save file chooser */
+		JFileChooser chooser = new JFileChooser();
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		int result = chooser.showSaveDialog(this);
+
+		/* If the file path selected. */
+		if (result == chooser.APPROVE_OPTION) {
+			File f = chooser.getSelectedFile();
+			String filePath = f.getAbsolutePath();
+			/* Check if the file name end with ".csv"  */
+			if(!filePath.endsWith(".csv")) {
+			    f = new File(filePath + ".csv");
+			    Game2CSV creatGameCSV = new Game2CSV(this.game, f);
+			}else {
+				Game2CSV creatGameCSV = new Game2CSV(this.game, f);
+			}
+
+		}
+
+	}
 
 	public void paint(Graphics g) {
 		g.drawImage(this.myImage, -9, -9, this.getWidth(), this.getHeight(), this);
@@ -196,7 +216,7 @@ public class MyFrame extends JFrame implements MouseListener {
 			Pixel pixel = new Pixel(0, 0);
 			pixel = convert.convertGPStoPixel(pac.getGps());
 			int r = 30;
-			int x = pixel.getX() - (r / 2);   
+			int x = pixel.getX() - (r / 2);
 			int y = pixel.getY() - (r / 2);
 			g.setColor(Color.yellow);
 			g.fillOval(x, y, r, r);
@@ -214,30 +234,29 @@ public class MyFrame extends JFrame implements MouseListener {
 			g.setColor(Color.red);
 			g.fillOval(x, y, r, r);
 		}
-		
+
 		/* Draw lines */
 		if (isPath) {
-			Pixel a = new Pixel(0,0);
-			Pixel b = new Pixel(0,0);
-			Point3D first = new Point3D(0,0,0);
-			Point3D second = new Point3D(0,0,0);
-			
-			for(int i = 0 ;i < (algo.getPath().getPath().size())-1 ;i++) {   //if path.size =1 then bug
-			
-				if(i == 0) {
-					first = ((Pacman)(algo.getPath().getPath().get(0))).getGps();
-					second = ((Fruit)(algo.getPath().getPath().get(1))).getGps();
+			Pixel a = new Pixel(0, 0);
+			Pixel b = new Pixel(0, 0);
+			Point3D first = new Point3D(0, 0, 0);
+			Point3D second = new Point3D(0, 0, 0);
+
+			for (int i = 0; i < (algo.getPath().getPath().size()) - 1; i++) { // if path.size =1 then bug
+
+				if (i == 0) {
+					first = ((Pacman) (algo.getPath().getPath().get(0))).getGps();
+					second = ((Fruit) (algo.getPath().getPath().get(1))).getGps();
+				} else {
+					first = ((Fruit) (algo.getPath().getPath().get(i))).getGps();
+					second = ((Fruit) (algo.getPath().getPath().get(i + 1))).getGps();
 				}
-				else {
-					first = ((Fruit)(algo.getPath().getPath().get(i))).getGps();
-					second = ((Fruit)(algo.getPath().getPath().get(i+1))).getGps();
-				}
-				
+
 				a = convert.convertGPStoPixel(first);
 				b = convert.convertGPStoPixel(second);
-                
+
 				g.setColor(Color.GREEN);
-				g.drawLine(a.getX(), a.getY(), b.getX(),b.getY());
+				g.drawLine(a.getX(), a.getY(), b.getX(), b.getY());
 			}
 		}
 	}
@@ -289,8 +308,6 @@ public class MyFrame extends JFrame implements MouseListener {
 			Fruit fruit = new Fruit(gps.x(), gps.y(), this.game.getFruits().size());
 			this.game.getFruits().add(fruit);
 		}
-		
-	
 
 		repaint();
 	}

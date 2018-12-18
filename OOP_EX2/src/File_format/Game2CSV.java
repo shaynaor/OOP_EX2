@@ -2,6 +2,8 @@ package File_format;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 
@@ -12,19 +14,22 @@ import GIS.Pacman;
 public class Game2CSV {
 	private Game game;
 
-	public Game2CSV(Game game) {
+	public Game2CSV(Game game, File path) {
 		this.game = game;
-		createCSVGame();
+		createCSVGame(path);
 	}
 
-	private void createCSVGame() {
+	private void createCSVGame(File path) {
 		PrintWriter pw = null;
+		FileWriter fw = null;
 		StringBuilder sb = new StringBuilder();
+		
 		try {
-			pw = new PrintWriter(new File("test.csv"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			fw = new FileWriter(path);
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
+		pw = new PrintWriter(fw);
 
 		/* Create the first row. */
 		sb.append("Type,");
