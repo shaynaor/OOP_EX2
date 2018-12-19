@@ -7,7 +7,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import Geom.Point3D;
-
+/**
+ * This class represents a map.
+ * a map is an object that receives an image of an area,
+ * and the gps points of the top left and bottom right corners of the image.
+ * it will also same the value of how much pixels are in the image. as heightXwidth.
+ * @author Alex vaisman, Shay naor.
+ *
+ */
 public class Map {
 	private BufferedImage myImage;
 	private int width;
@@ -15,9 +22,10 @@ public class Map {
 	private Point3D topLeft;
 	private Point3D botRight;
 
-
+  /**
+   * This function loads an image and inputs the topleft and bot right gps values.
+   */
 	public Map() {
-		
 		/* INIT myImge filed */
 		try {
 			this.myImage = ImageIO.read(new File("C:\\Users\\A Beast\\Desktop\\data\\Ariel1.png"));
@@ -32,6 +40,9 @@ public class Map {
 		this.botRight = new Point3D(32.101931, 35.212397);
 	}
 
+	
+	
+	//=======Getters========
 	public BufferedImage getMyImage() {
 		return myImage;
 	}
