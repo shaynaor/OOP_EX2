@@ -21,7 +21,7 @@ public class Range {
 	 * @param time ,The time for which a point must be found.
 	 * @param a , The first point.
 	 * @param b , The second point.
-	 * @return , a point between point a and b realtive to the given time.
+	 * @return , a point between point a and b relative to the given time.
 	 */
 	public Point3D getPosInTime(double time , Fruit a, Fruit b) {
 
