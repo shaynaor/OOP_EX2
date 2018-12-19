@@ -48,8 +48,15 @@ public class Fruit implements GIS_element {
 		
 		this.metaData = new Mdata_game(id, false);
 	}
-    
-	
+
+	/**
+	 * Transforms a gps point by a vector point in meters.
+	 */
+	public void translate(Point3D vec) {
+		MyCoords cor = new MyCoords();
+		this.gps = cor.add(this.gps, vec);
+	}
+
 	//======Getters=======
 	public Point3D getGps() {
 		return gps;
@@ -84,12 +91,6 @@ public class Fruit implements GIS_element {
 		return timeEaten;
 	}
 
-	/**
-	 * Transforms a gps point by a vector point in meters.
-	 */
-	public void translate(Point3D vec) {
-		MyCoords cor = new MyCoords();
-		this.gps = cor.add(this.gps, vec);
-	}
+
 
 }
