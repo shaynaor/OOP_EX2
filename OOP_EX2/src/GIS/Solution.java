@@ -1,7 +1,12 @@
 package GIS;
 
 import java.util.ArrayList;
-
+/**
+ * This class represents a Solution.
+ * Solution is an ArrayList of Paths.
+ * a Solution will be created to represent all the paths all the pacmans will make in a given game.
+ * @author Alex vaisman, Shay naor.
+ */
 public class Solution {
 
 	
