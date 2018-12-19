@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import File_format.MyFileUtils;
 
 /**
- * 
- * 
+ * This class represents a Game.
+ * A game is an object with two ArrayList associated with it.
+ * one ArrayList for fruits, and one for pacmans.
+ * This class will receive a path to a CSV file.
+ * it will read the file and add each element fruit or pacman to the correct array.
  * @author Shay Naor , Alex VAisman
  *
  */
@@ -17,8 +20,12 @@ public class Game {
 	private ArrayList<Pacman> pacmans;// contains all the Pacmans.
 
 	/**
-	 * 
-	 * @param path
+	 * This function receives a path to a CSV file.
+	 * it will read the file and then read each line.
+	 * if the object in the line is pacman it will add it to ArrayList<Pacman>.
+	 * if the object in the line is a fruit it will add it to ArrayList<Fruit>.
+	 * Will throw ParseException if a CSV line is not written in the correct format.
+	 * @param path, the path to the CSV file.
 	 */
 	public Game(String path) {
 		this.fruits = new ArrayList<Fruit>();
@@ -74,6 +81,8 @@ public class Game {
 
 	}
 	
+	
+	//======Getters======
 	public Game() {
 		this.fruits = new ArrayList<Fruit>();
 		this.pacmans = new ArrayList<Pacman>();
