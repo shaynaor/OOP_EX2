@@ -11,6 +11,11 @@ import GIS.Fruit;
 import GIS.Game;
 import GIS.Pacman;
 
+/**
+ * This class receives a game and saves it to a CSV file.
+ * @author Alex vaisman, Shay naor.
+ *
+ */
 public class Game2CSV {
 	private Game game;
 
@@ -19,6 +24,11 @@ public class Game2CSV {
 		createCSVGame(path);
 	}
 
+	/**
+	 * This function receives a game and converts it to a CSV format,
+	 * then writes that format into a path where the file will be created and saved. 
+	 * @param path
+	 */
 	private void createCSVGame(File path) {
 		PrintWriter pw = null;
 		FileWriter fw = null;
