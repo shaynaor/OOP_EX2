@@ -243,7 +243,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		System.out.println("final distance: " + this.algo.getPath().getDistance());
 		System.out.println("final time: " + this.algo.getPath().finalTime());
 
-		this.isSimulation = true;
+		//this.isSimulation = true;--------------------------------------- <----
 		repaint();
 	}
 
