@@ -19,6 +19,12 @@ public class Game {
 	private ArrayList<Fruit> fruits;// contains all the Fruits.
 	private ArrayList<Pacman> pacmans;// contains all the Pacmans.
 
+	
+	public Game() {
+		this.fruits = new ArrayList<Fruit>();
+		this.pacmans = new ArrayList<Pacman>();
+	}
+	
 	/**
 	 * This function receives a path to a CSV file.
 	 * it will read the file and then read each line.
@@ -82,11 +88,19 @@ public class Game {
 	}
 	
 	
+	
 	//======Getters======
-	public Game() {
-		this.fruits = new ArrayList<Fruit>();
-		this.pacmans = new ArrayList<Pacman>();
+	
+
+	public void setFruits(ArrayList<Fruit> fruits) {
+		this.fruits = fruits;
 	}
+
+
+	public void setPacmans(ArrayList<Pacman> pacmans) {
+		this.pacmans = pacmans;
+	}
+
 
 	public ArrayList<Fruit> getFruits() {
 		return fruits;
