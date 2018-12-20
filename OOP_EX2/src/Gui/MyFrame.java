@@ -40,6 +40,7 @@ public class MyFrame extends JFrame implements MouseListener {
 	private Map map;
 	private ArrayList<Point3D> nextPacman;
 
+
 	private boolean isPath; // added might need to delete later
 	private ShortestPathAlgo algo; // same
 
@@ -241,9 +242,6 @@ public class MyFrame extends JFrame implements MouseListener {
 
 		//this.nextPacman = thread.getNextPacmans();// may bug the tread not ending.
 
-		//System.out.println("final distance: " + this.algo.getPath().getDistance());
-		//System.out.println("final time: " + this.algo.getPath().finalTime());
-
 		//this.isSimulation = true;--------------------------------------- <----
 		repaint();
 	}
@@ -434,6 +432,15 @@ public class MyFrame extends JFrame implements MouseListener {
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public ArrayList<Point3D> getNextPacman() {
+		return nextPacman;
+	}
+
+	public void setNextPacman(ArrayList<Point3D> nextPacman) {
+		this.nextPacman = nextPacman;
+		repaint();
 	}
 
 }
