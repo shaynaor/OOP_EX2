@@ -240,7 +240,7 @@ public class MyFrame extends JFrame implements MouseListener {
 
 		//t1.start();
 
-		//this.nextPacman = thread.getNextPacmans();// may bug the tread not ending.
+		//this.nextPacman = thread.getNextPacmans();// ma
 
 		//this.isSimulation = true;--------------------------------------- <----
 		repaint();
