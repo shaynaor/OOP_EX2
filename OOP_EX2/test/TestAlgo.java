@@ -17,7 +17,10 @@ import GIS.Pacman;
 
 class TestAlgo {
 
-
+    /**
+     * this test creates a game with 5 pacmans and 20 fruits.
+     * checks if all the fruits are eaten in the end of the algo.
+     */
 	@Test
 	void TestIfAteAllFruits() {
 		ArrayList<Fruit> fruits = new ArrayList<Fruit>();
