@@ -22,9 +22,9 @@ public class Map {
 	private Point3D topLeft;
 	private Point3D botRight;
 
-  /**
-   * This function loads an image and inputs the topleft and bot right gps values.
-   */
+	/**
+	 * This function loads an image and inputs the topleft and bot right gps values.
+	 */
 	public Map() {
 		/* INIT myImge filed */
 		try {
@@ -33,15 +33,19 @@ public class Map {
 			System.err.println("ERROR: incorrect path for picture!");
 			e.printStackTrace();
 		}
-		
+
 		this.width = myImage.getWidth();
 		this.height = myImage.getHeight();
 		this.topLeft = new Point3D(32.105689, 35.202411);
 		this.botRight = new Point3D(32.101931, 35.212397);
 	}
 
-	
-	
+
+
+
+
+
+
 	//=======Getters========
 	public BufferedImage getMyImage() {
 		return myImage;
@@ -69,6 +73,15 @@ public class Map {
 
 	public Point3D getBotRight() {
 		return botRight;
+	}
+	
+	public void setTopLeft(Point3D topLeft) {
+		this.topLeft = topLeft;
+	}
+
+
+	public void setBotRight(Point3D botRight) {
+		this.botRight = botRight;
 	}
 
 }
