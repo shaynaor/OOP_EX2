@@ -68,8 +68,8 @@ public class ShortestPathAlgo {
 
 		int numOfPac = pacmans.size();
 		int numOfFru = fruits.size();
-		int numOfFruInPath = numOfFru / numOfPac;// need to fix (not divided - so have more fruits in the end)
-		int mod=0 , k=0;
+		int numOfFruInPath = numOfFru / numOfPac;
+		int mod=0 , k=0;     // if there is a remainder add it to the first pacman
 		if(numOfFru % numOfPac != 0) {
 			mod = numOfFru % numOfPac;
 		}
@@ -81,7 +81,7 @@ public class ShortestPathAlgo {
 
 		Iterator<Pacman> pacIt = pacmans.iterator();
 		Iterator<Fruit> fruitIt = fruits.iterator();
-		Pacman pac = new Pacman(0, 0, 0);//ask alex if need to be in while loop****
+		Pacman pac = new Pacman(0, 0, 0);
 		Fruit fruit = new Fruit(0, 0, 0);
 
 		while (pacIt.hasNext() && fruitIt.hasNext()) {
