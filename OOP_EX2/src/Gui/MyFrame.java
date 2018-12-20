@@ -26,6 +26,7 @@ import File_format.Game2CSV;
 import GIS.Fruit;
 import GIS.Game;
 import GIS.Pacman;
+import GIS.Path;
 import Geom.Pixel;
 import Geom.Point3D;
 import Thread.PacNextStep;
@@ -232,16 +233,16 @@ public class MyFrame extends JFrame implements MouseListener {
 	private void startAlgo(ActionEvent e) {
 		ShortestPathAlgo algo = new ShortestPathAlgo(this.game);
 		this.algo = algo;
-		this.isPath = true; // may be delete
-		PacNextStep thread = new PacNextStep(this.algo.getSolution());
-		Thread t1 = new Thread(thread);
-		
-		t1.start();
-		
-		this.nextPacman = thread.getNextPacmans();// may bug the tread not ending.
+		this.isPath = true; 
+		//PacNextStep thread = new PacNextStep(this.algo.getSolution());
+		//Thread t1 = new Thread(thread);
 
-		System.out.println("final distance: " + this.algo.getPath().getDistance());
-		System.out.println("final time: " + this.algo.getPath().finalTime());
+		//t1.start();
+
+		//this.nextPacman = thread.getNextPacmans();// may bug the tread not ending.
+
+		//System.out.println("final distance: " + this.algo.getPath().getDistance());
+		//System.out.println("final time: " + this.algo.getPath().finalTime());
 
 		//this.isSimulation = true;--------------------------------------- <----
 		repaint();
@@ -255,7 +256,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		/* Draw pacmans */
 		Iterator<Pacman> pacIt = this.game.getPacmans().iterator();
 		Convert_pixel_gps convert = new Convert_pixel_gps(this.map);
-		
+
 		if (!isSimulation) {
 			while (pacIt.hasNext()) {
 				Pacman pac = pacIt.next();
@@ -301,26 +302,66 @@ public class MyFrame extends JFrame implements MouseListener {
 			Pixel b = new Pixel(0, 0);
 			Point3D first = new Point3D(0, 0, 0);
 			Point3D second = new Point3D(0, 0, 0);
+			Iterator<Path> itPath = algo.getSolution().getSolution().iterator();
+            int color = 0;
+			while(itPath.hasNext()) {
+				Path path = itPath.next();
+				color++;
+				for (int i = 0; i < (path.getPath().size()) - 1; i++) { // if path.size =1 then bug
 
-			for (int i = 0; i < (algo.getPath().getPath().size()) - 1; i++) { // if path.size =1 then bug
+					if (i == 0) {
+						first = ((Pacman) (path.getPath().get(0))).getGps();
+						second = ((Fruit) (path.getPath().get(1))).getGps();
+					} else {
+						first = ((Fruit) (path.getPath().get(i))).getGps();
+						second = ((Fruit) (path.getPath().get(i + 1))).getGps();
+					}
 
-				if (i == 0) {
-					first = ((Pacman) (algo.getPath().getPath().get(0))).getGps();
-					second = ((Fruit) (algo.getPath().getPath().get(1))).getGps();
-				} else {
-					first = ((Fruit) (algo.getPath().getPath().get(i))).getGps();
-					second = ((Fruit) (algo.getPath().getPath().get(i + 1))).getGps();
+					a = convert.convertGPStoPixel(first);
+					b = convert.convertGPStoPixel(second);
+
+					g.setColor(randomColor(color));
+					g.drawLine(a.getX(), a.getY(), b.getX(), b.getY());
 				}
-
-				a = convert.convertGPStoPixel(first);
-				b = convert.convertGPStoPixel(second);
-
-				g.setColor(Color.GREEN);
-				g.drawLine(a.getX(), a.getY(), b.getX(), b.getY());
 			}
 		}
 	}
 
+	private Color randomColor(int i) {
+		i = i%10;
+		if(i ==0) {
+			return Color.GRAY;
+		}
+		if(i ==1) {
+			return Color.YELLOW;
+		}
+		if(i ==2) {
+			return Color.RED;
+		}
+		if(i ==3) {
+			return Color.GREEN;
+		}
+		if(i ==4) {
+			return Color.BLACK;
+		}
+		if(i ==5) {
+			return Color.MAGENTA;
+		}
+		if(i ==6) {
+			return Color.BLUE;
+		}
+		if(i ==7) {
+			return Color.CYAN;
+		}
+		if(i ==8) {
+			return Color.PINK;
+		}
+		if(i ==9) {
+			return Color.ORANGE;
+		}
+		return null;
+	}
+	
 	public BufferedImage getMyImage() {
 		return myImage;
 	}
