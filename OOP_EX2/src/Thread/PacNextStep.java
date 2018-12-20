@@ -10,46 +10,50 @@ import GIS.Pacman;
 import GIS.Path;
 import GIS.Solution;
 import Geom.Point3D;
+import Gui.MyFrame;
 
 public class PacNextStep implements Runnable {
 
-	private Solution solution;
-	private ArrayList<Point3D> nextPacmans;
+	private MyFrame frame;
 
-	public PacNextStep(Solution solution) {
-		this.solution = new Solution();
+	public PacNextStep(MyFrame frame) {
+		this.frame = frame;
 	}
 
 	public void run() {
-		double currentTime = 0.1;
-		Iterator<Path> itPath = this.solution.getSolution().iterator();
-		Fruit[] fruitArr = new Fruit[2];
+		double currentTime = this.frame.getCurrentTime();
+		double endTime = this.frame.getAlgo().getSolution().getTime();
+		Path path = new Path();
+		Fruit[] fruits = new Fruit[2];
 		Range range = new Range();
-		this.nextPacmans = new ArrayList<Point3D>();
-		Point3D pointNext = new Point3D(0, 0, 0);
-
-		/* While */
-		while (currentTime <= this.solution.getTime()) {
-			/* Goes over the paths */
-			while (itPath.hasNext()) {
-				Path path = itPath.next();
-				fruitArr = findBounds(currentTime, path);
-				pointNext = range.getPosInTime(currentTime, fruitArr[0], fruitArr[1]);
-				this.nextPacmans.add(pointNext);
+		ArrayList<Pacman> pacmans = new ArrayList<Pacman>();
+		Point3D point = new Point3D(0, 0, 0);
+		while (currentTime <= endTime) {
+			pacmans.clear();
+			System.out.println(currentTime);
+			Iterator<Path> pathIt = frame.getAlgo().getSolution().getSolution().iterator();
+			while (pathIt.hasNext()) {
+				path = pathIt.next();
+				fruits = findBounds(currentTime, path);
+				if (fruits == null) {
+					/// do nothing
+				} else {
+					point = range.getPosInTime(currentTime, fruits[0], fruits[1]);
+					Pacman pac = new Pacman(point.x(), point.y(), 0);
+					pacmans.add(pac);
+				}
 
 			}
-
-			// ==========Reseting values=======
-			currentTime = currentTime + 0.1;
+			this.frame.setNextPacman(pacmans);
+			pathIt = frame.getAlgo().getSolution().getSolution().iterator();
+			currentTime += 0.1;
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
-	}
-	
-	public ArrayList<Point3D> nextPacmansFunc(){
-		
-		
-		
-		return null;
 	}
 
 	/**
@@ -60,34 +64,36 @@ public class PacNextStep implements Runnable {
 	 * @return the fruit pacman going to eat next and the fruit before.
 	 */
 	public Fruit[] findBounds(double time, Path path) {
-		Fruit fruit = new Fruit(0, 0, 0);
-		Iterator<GIS_element> itFruit = path.getPath().iterator();
-		Fruit[] limit = new Fruit[2];
-
-		itFruit.next();
-		if (itFruit instanceof Fruit) {
-			fruit = (Fruit) itFruit;
-			limit[0] = fruit;
-		} else {
-			fruit = new Fruit(((Pacman) itFruit).getGps().x(), ((Pacman) itFruit).getGps().y(), 0);
-			fruit.eaten(0);
-			limit[0] = fruit;
+		/* Check if the time is not above the path time. */
+		if (time > path.finalTime()) {
+			return null;
 		}
-
-		while (itFruit.hasNext()) {
-			limit[0] = fruit;
-			fruit = (Fruit) itFruit.next();
-
+		/* If the path contains only one pacman */
+		if (path.getPath().size() == 1) {
+			return null;
+		}
+		Fruit[] fruitsArr = new Fruit[2];
+		Iterator<GIS_element> gisIt = path.getPath().iterator();
+		Pacman pac = (Pacman) gisIt.next();
+		Fruit fruitPac = new Fruit(pac.getGps().x(), pac.getGps().y(), 0);
+		Fruit fruit = (Fruit) gisIt.next();
+		
+		if (time < fruit.getTimeEaten()) {
+			fruitsArr[0] = fruitPac;
+			fruitsArr[1] = fruit;
+			return fruitsArr;
+		}
+		fruitsArr[0] = fruit;
+		while (gisIt.hasNext()) {
+			fruit = (Fruit) gisIt.next();// may new
 			if (time < fruit.getTimeEaten()) {
-				limit[1] = fruit;
-				return limit;
+				fruitsArr[1] = fruit;
+				return fruitsArr;
 			}
+			fruitsArr[0] = fruit;
 		}
-		return limit;
-	}
+		return null;
 
-	public ArrayList<Point3D> getNextPacmans() {
-		return nextPacmans;
 	}
 
 }

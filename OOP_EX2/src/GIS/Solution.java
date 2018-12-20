@@ -1,6 +1,7 @@
 package GIS;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 /**
  * This class represents a Solution.
  * Solution is an ArrayList of Paths.
@@ -37,11 +38,27 @@ public class Solution {
 
 
 	public double getTime() {
-		return time;
+		double time = 0;
+		
+		Iterator<Path> pathIt = this.solution.iterator();
+		while(pathIt.hasNext()) {
+			Path path = pathIt.next();
+			time = path.finalTime();
+			if(time > this.time) {
+				this.time = time;
+			}
+		}
+		return this.time;
 	}
 
 
 	public double getDistance() {
+		
+		Iterator<Path> pathIt = this.solution.iterator();
+		while(pathIt.hasNext()) {
+			Path path = pathIt.next();
+			this.distance += path.getDistance();
+		}
 		return distance;
 	}
 

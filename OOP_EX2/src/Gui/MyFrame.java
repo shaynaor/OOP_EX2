@@ -38,8 +38,8 @@ public class MyFrame extends JFrame implements MouseListener {
 	private boolean isFruit;
 	private boolean isSimulation;
 	private Map map;
-	private ArrayList<Point3D> nextPacman;
-
+	private ArrayList<Pacman> nextPacman;
+	private double currentTime;
 
 	private boolean isPath; // added might need to delete later
 	private ShortestPathAlgo algo; // same
@@ -52,7 +52,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		this.myImage = map.getMyImage();
 		this.isPath = false;
 		this.isSimulation = false;
-		this.nextPacman = new ArrayList<Point3D>();
+		this.nextPacman = new ArrayList<Pacman>();
 
 		initGUI();
 		this.addMouseListener(this);
@@ -234,15 +234,15 @@ public class MyFrame extends JFrame implements MouseListener {
 	private void startAlgo(ActionEvent e) {
 		ShortestPathAlgo algo = new ShortestPathAlgo(this.game);
 		this.algo = algo;
-		this.isPath = true; 
-		//PacNextStep thread = new PacNextStep(this.algo.getSolution());
-		//Thread t1 = new Thread(thread);
-
-		//t1.start();
-
-		//this.nextPacman = thread.getNextPacmans();// ma
-
-		//this.isSimulation = true;--------------------------------------- <----
+		this.isPath = true;
+		this.currentTime = 0.1;
+		this.isSimulation = true;
+		PacNextStep thread = new PacNextStep(this);
+		Thread t1 = new Thread(thread);
+		t1.start();
+		System.out.println("Time: " +algo.getSolution().getTime());
+		System.out.println("dist: " +algo.getSolution().getDistance());
+		
 		repaint();
 	}
 
@@ -267,12 +267,17 @@ public class MyFrame extends JFrame implements MouseListener {
 				g.fillOval(x, y, r, r);
 			}
 		}
-		if(isSimulation) {
-			Iterator<Point3D> pointIt = this.nextPacman.iterator();
-			while(pointIt.hasNext()) {
-				Point3D point = pointIt.next();
+		System.out.println(isSimulation);
+		if (isSimulation) {
+			
+			Iterator<Pacman> pacmanIt = this.getNextPacman().iterator();
+			System.out.println(this.getNextPacman().size());
+			while (pacmanIt.hasNext()) {
+				System.out.println("asdasdasfsdgfsdgfdgfd");
+				Pacman pac = pacmanIt.next();
+				System.out.println(pac.getGps());
 				Pixel pixel = new Pixel(0, 0);
-				pixel = convert.convertGPStoPixel(point);
+				pixel = convert.convertGPStoPixel(pac.getGps());
 				int r = 30;
 				int x = pixel.getX() - (r / 2);
 				int y = pixel.getY() - (r / 2);
@@ -301,8 +306,8 @@ public class MyFrame extends JFrame implements MouseListener {
 			Point3D first = new Point3D(0, 0, 0);
 			Point3D second = new Point3D(0, 0, 0);
 			Iterator<Path> itPath = algo.getSolution().getSolution().iterator();
-            int color = 0;
-			while(itPath.hasNext()) {
+			int color = 0;
+			while (itPath.hasNext()) {
 				Path path = itPath.next();
 				color++;
 				for (int i = 0; i < (path.getPath().size()) - 1; i++) { // if path.size =1 then bug
@@ -326,40 +331,40 @@ public class MyFrame extends JFrame implements MouseListener {
 	}
 
 	private Color randomColor(int i) {
-		i = i%10;
-		if(i ==0) {
+		i = i % 10;
+		if (i == 0) {
 			return Color.GRAY;
 		}
-		if(i ==1) {
+		if (i == 1) {
 			return Color.YELLOW;
 		}
-		if(i ==2) {
+		if (i == 2) {
 			return Color.RED;
 		}
-		if(i ==3) {
+		if (i == 3) {
 			return Color.GREEN;
 		}
-		if(i ==4) {
+		if (i == 4) {
 			return Color.BLACK;
 		}
-		if(i ==5) {
+		if (i == 5) {
 			return Color.MAGENTA;
 		}
-		if(i ==6) {
+		if (i == 6) {
 			return Color.BLUE;
 		}
-		if(i ==7) {
+		if (i == 7) {
 			return Color.CYAN;
 		}
-		if(i ==8) {
+		if (i == 8) {
 			return Color.PINK;
 		}
-		if(i ==9) {
+		if (i == 9) {
 			return Color.ORANGE;
 		}
 		return null;
 	}
-	
+
 	public BufferedImage getMyImage() {
 		return myImage;
 	}
@@ -433,14 +438,26 @@ public class MyFrame extends JFrame implements MouseListener {
 		// TODO Auto-generated method stub
 
 	}
-	
-	public ArrayList<Point3D> getNextPacman() {
+
+	public ArrayList<Pacman> getNextPacman() {
 		return nextPacman;
 	}
 
-	public void setNextPacman(ArrayList<Point3D> nextPacman) {
+	public void setNextPacman(ArrayList<Pacman> nextPacman) {
 		this.nextPacman = nextPacman;
 		repaint();
+	}
+
+	public double getCurrentTime() {
+		return currentTime;
+	}
+
+	public void setCurrentTime(double currentTime) {
+		this.currentTime = currentTime;
+	}
+
+	public ShortestPathAlgo getAlgo() {
+		return algo;
 	}
 
 }
