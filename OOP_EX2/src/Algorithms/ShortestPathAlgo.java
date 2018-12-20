@@ -12,30 +12,48 @@ import GIS.Pacman;
 import GIS.Path;
 import GIS.Solution;
 import Geom.Point3D;
-
+/**
+ * This class receives a game and finds a path for each Pacman ,such as
+ * each fruit is eaten in the end of the game.
+ * @author Alex vaisman , Shay naor.
+ */
 public class ShortestPathAlgo {
-
 	private Game game;
-	private Path path;
 	private Solution solution;
 	private final ComperByDist distCmpFruit = new ComperByDist();
 	private final ComperByDistPacman distCmpPac = new ComperByDistPacman();
 
+	/**
+	 * This function is the Constructor.
+	 * it calls algo function.
+	 * @param game
+	 */
 	public ShortestPathAlgo(Game game) {
 		this.game = game;
 		this.solution = new Solution();
-		this.path = new Path();
 		/* findPath() ; full search algo */
 		algo();
 	}
 
+	/**
+	 * This function checks if the input is valid.
+	 * if we receive 0 pacman or 0 fruits there is no calculation to be done.
+	 * 
+	 */
 	private void algo() {
 		if (this.game.getFruits().isEmpty() || this.game.getPacmans().isEmpty())
-			return;// need to fix it.
+			return;
 		else
 			startAlgo();
 	}
 
+	/**
+	 * This function finds the distance of all pacmans and fruits from the top left corner of the game.
+	 * it will sort the packmans and the fruits according to that distance.
+	 * then the function depending on how much fruits there are will assign each packman what fruits
+	 * he will have to eat and create a path.
+	 * then the function will send the path to pathAlgo which will find the shortest route given the path.
+	 */
 	private void startAlgo() {
 
 		/* Create array list of all the fruits */
@@ -76,7 +94,11 @@ public class ShortestPathAlgo {
 		}
 
 	}
-
+	/**
+	 * This function will receive a path containing one pacman and several fruits.
+	 * it will find the shortest path for the pacman to go between the fruits.
+	 * @param path , the path the function receives.
+	 */
 	private void pathAlgo(Path path) {
 		Path ans =  new Path();
 		double min = Double.MAX_VALUE;
@@ -127,10 +149,8 @@ public class ShortestPathAlgo {
 		}
 		this.solution.getSolution().add(ans);
 	}
-	
-	public Path getPath() {
-		return path;
-	}
+
+
 
 	public Solution getSolution() {
 		return solution;

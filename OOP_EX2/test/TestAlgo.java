@@ -27,7 +27,7 @@ class TestAlgo {
 		ArrayList<Pacman> pacmans = new ArrayList<Pacman>();
 		
 		//====Generate furits====
-		for(int i = 0; i < 1000; i++) {
+		for(int i = 0; i < 10; i++) {
 			int x = ThreadLocalRandom.current().nextInt(0, 5000 + 1);
 			int y = ThreadLocalRandom.current().nextInt(0, 5000 + 1);
 			Fruit f = new Fruit(x,y,0);
@@ -48,7 +48,8 @@ class TestAlgo {
 		ShortestPathAlgo algo = new ShortestPathAlgo(game);
 		
 		//====Check algo====
-		Iterator<GIS_element> itPath = algo.getPath().getPath().iterator();
+	
+		Iterator<Fruit> itPath = game.getFruits().iterator();
 		itPath.next();
 		Fruit f =  new Fruit(0,0,0);
 		while(itPath.hasNext()){
