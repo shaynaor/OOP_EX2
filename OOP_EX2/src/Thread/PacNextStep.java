@@ -2,6 +2,7 @@ package Thread;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Vector;
 
 import Coords.Range;
 import GIS.Fruit;
@@ -26,7 +27,7 @@ public class PacNextStep implements Runnable {
 		Path path = new Path();
 		Fruit[] fruits = new Fruit[2];
 		Range range = new Range();
-		ArrayList<Pacman> pacmans = new ArrayList<Pacman>();
+		Vector<Pacman> pacmans = new Vector<Pacman>();
 		Point3D point = new Point3D(0, 0, 0);
 		while (currentTime <= endTime) {
 			pacmans.clear();
@@ -48,9 +49,9 @@ public class PacNextStep implements Runnable {
 			}
 			this.frame.setNextPacman(pacmans);
 			pathIt = frame.getAlgo().getSolution().getSolution().iterator();
-			currentTime += 0.1;
+			currentTime += 0.1;        ///////////////////////////PLAYED WTH THIS TWO
 			try {
-				Thread.sleep(10);
+				Thread.sleep(100);   /////////////////////////////////////
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

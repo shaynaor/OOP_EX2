@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -31,14 +32,14 @@ import Geom.Pixel;
 import Geom.Point3D;
 import Thread.PacNextStep;
 
-public class MyFrame extends JFrame implements MouseListener {
+public class MyFrame extends JFrame implements MouseListener, Runnable {
 	private BufferedImage myImage;
 	private Game game;
 	private boolean isPacman;
 	private boolean isFruit;
 	private boolean isSimulation;
 	private Map map;
-	private ArrayList<Pacman> nextPacman;
+	private Vector<Pacman> nextPacman;
 	private double currentTime;
 
 	private boolean isPath; // added might need to delete later
@@ -52,10 +53,13 @@ public class MyFrame extends JFrame implements MouseListener {
 		this.myImage = map.getMyImage();
 		this.isPath = false;
 		this.isSimulation = false;
-		this.nextPacman = new ArrayList<Pacman>();
+		this.nextPacman = new Vector<Pacman>();
 
-		initGUI();
 		this.addMouseListener(this);
+	}
+	
+	public void run() {
+		initGUI();
 	}
 
 	private void initGUI() {
@@ -245,11 +249,9 @@ public class MyFrame extends JFrame implements MouseListener {
 		Thread t1 = new Thread(thread);
 		t1.start();
 
-		repaint();
-
 	}
 
-	public void paint(Graphics g) {
+	public void paint (Graphics g) {
 		g.drawImage(this.myImage, -9, -9, this.getWidth(), this.getHeight(), this);
 
 		this.map.setHeight(this.getHeight());
@@ -258,6 +260,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		Iterator<Pacman> pacIt = this.game.getPacmans().iterator();
 		Convert_pixel_gps convert = new Convert_pixel_gps(this.map);
 
+		/* Draw pacmans outside sumulation */
 		if (!isSimulation) {
 			while (pacIt.hasNext()) {
 				Pacman pac = pacIt.next();
@@ -269,38 +272,57 @@ public class MyFrame extends JFrame implements MouseListener {
 				g.setColor(Color.yellow);
 				g.fillOval(x, y, r, r);
 			}
-		}
-		if (isSimulation) {
 
+			/* Draw fruits */
+			Iterator<Fruit> fruitIt = this.game.getFruits().iterator();
+			while (fruitIt.hasNext()) {
+				Fruit fruit = fruitIt.next();
+				Pixel pixel = new Pixel(0, 0);
+				pixel = convert.convertGPStoPixel(fruit.getGps());
+				int r = 15;
+				int x = pixel.getX() - (r / 2);
+				int y = pixel.getY() - (r / 2);
+				g.setColor(Color.red);
+				g.fillOval(x, y, r, r);
+			}
+		}
+		/*Draw fruits and  when its simulation */
+		if (isSimulation) {
+			/* Draw fruits */
+			Iterator<Fruit> fruitIt = this.game.getFruits().iterator();
+			while (fruitIt.hasNext()) {
+				Fruit fruit = fruitIt.next();
+				Pixel pixel = new Pixel(0, 0);
+				pixel = convert.convertGPStoPixel(fruit.getGps());
+				int r = 15;
+				int x = pixel.getX() - (r / 2);
+				int y = pixel.getY() - (r / 2);
+				g.setColor(Color.red);
+				g.fillOval(x, y, r, r);
+			}
+		}
+
+
+
+		/* Draw next pacman in simulation */
+		if (isSimulation) {
 			Iterator<Pacman> pacmanIt = this.getNextPacman().iterator();
 			while (pacmanIt.hasNext()) {
-					Pacman pac = pacmanIt.next();
-					Pixel pixel = new Pixel(0, 0);
-					pixel = convert.convertGPStoPixel(pac.getGps());
-					int r = 30;
-					int x = pixel.getX() - (r / 2);
-					int y = pixel.getY() - (r / 2);
-					g.setColor(Color.yellow);
-					g.fillOval(x, y, r, r);
+				Pacman pac = pacmanIt.next();
+				Pixel pixel = new Pixel(0, 0);
+				pixel = convert.convertGPStoPixel(pac.getGps());
+				int r = 30;
+				int x = pixel.getX() - (r / 2);
+				int y = pixel.getY() - (r / 2);
+				g.setColor(Color.yellow);
+				g.fillOval(x, y, r, r);
 			}
-			isSimulation = false;
+
 		}
 
-		/* Draw fruits */
-		Iterator<Fruit> fruitIt = this.game.getFruits().iterator();
-		while (fruitIt.hasNext()) {
-			Fruit fruit = fruitIt.next();
-			Pixel pixel = new Pixel(0, 0);
-			pixel = convert.convertGPStoPixel(fruit.getGps());
-			int r = 15;
-			int x = pixel.getX() - (r / 2);
-			int y = pixel.getY() - (r / 2);
-			g.setColor(Color.red);
-			g.fillOval(x, y, r, r);
-		}
 
-		/* Draw lines */
-		if (isPath) {
+		/* Draw lines in simulation */
+		if (isPath&&isSimulation) {
 			Pixel a = new Pixel(0, 0);
 			Pixel b = new Pixel(0, 0);
 			Point3D first = new Point3D(0, 0, 0);
@@ -327,6 +349,7 @@ public class MyFrame extends JFrame implements MouseListener {
 					g.drawLine(a.getX(), a.getY(), b.getX(), b.getY());
 				}
 			}
+			isSimulation = false;
 		}
 	}
 
@@ -439,11 +462,11 @@ public class MyFrame extends JFrame implements MouseListener {
 
 	}
 
-	public ArrayList<Pacman> getNextPacman() {
+	public Vector<Pacman> getNextPacman() {
 		return nextPacman;
 	}
 
-	public void setNextPacman(ArrayList<Pacman> nextPacman) {
+	public void setNextPacman(Vector<Pacman> nextPacman) {
 		this.nextPacman = nextPacman;
 		isSimulation = true;
 		repaint();
@@ -460,5 +483,10 @@ public class MyFrame extends JFrame implements MouseListener {
 	public ShortestPathAlgo getAlgo() {
 		return algo;
 	}
+
+
+
+	
+
 
 }
