@@ -63,12 +63,7 @@ public class PacNextStep implements Runnable {
 
 	public Fruit[] findBounds(double time, Path path) {
 		Fruit[] fruitsArr = new Fruit[2];
-		/* Check if the time is not above the path time. */
-		if (time > path.finalTime() && !(path.getPath().size() == 1)) {
-			fruitsArr[0] =(Fruit)path.getPath().get(path.getPath().size()-1);
-			fruitsArr[1] =(Fruit)path.getPath().get(path.getPath().size()-1);
-			return fruitsArr;
-		}
+		
 		/* If the path contains only one pacman */
 		if (path.getPath().size() == 1) {
 			Pacman temp = new Pacman(((Pacman)(path.getPath().get(0))).getGps().x(),((Pacman)(path.getPath().get(0))).getGps().y(),0);
@@ -78,6 +73,14 @@ public class PacNextStep implements Runnable {
 			fruitsArr[1] =ftemp;
 			return fruitsArr;
 		}
+		
+		/* Check if the time is not above the path time. */
+		if (time > path.finalTime()) {
+			fruitsArr[0] =(Fruit)path.getPath().get(path.getPath().size()-1);
+			fruitsArr[1] =(Fruit)path.getPath().get(path.getPath().size()-1);
+			return fruitsArr;
+		}
+		
 		Iterator<GIS_element> gisIt = path.getPath().iterator();
 		Pacman pac = (Pacman) gisIt.next();
 		Fruit fruitPac = new Fruit(pac.getGps().x(), pac.getGps().y(), 0);
