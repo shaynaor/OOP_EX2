@@ -36,7 +36,7 @@ public class PacNextStep implements Runnable {
 				path = pathIt.next();
 				fruits = findBounds(currentTime, path);
 				if (fruits == null) {
-					/// do nothing
+					/* Do nothing */
 				} else {
 					point = range.getPosInTime(currentTime, fruits[0], fruits[1]);
 					Pacman pac = new Pacman(point.x(), point.y(), 0);
@@ -56,13 +56,7 @@ public class PacNextStep implements Runnable {
 
 	}
 
-	/**
-	 * finds the location in given time.
-	 * 
-	 * @param time the time given.
-	 * @param path the path of pacman.
-	 * @return the fruit pacman going to eat next and the fruit before.
-	 */
+	
 	public Fruit[] findBounds(double time, Path path) {
 		/* Check if the time is not above the path time. */
 		if (time > path.finalTime()) {

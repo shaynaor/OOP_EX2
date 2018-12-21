@@ -134,6 +134,8 @@ public class MyFrame extends JFrame implements MouseListener {
 				game.getPacmans().clear();
 				setPacman(false);
 				setFruit(false);
+				getNextPacman().clear();
+				isPath = false;
 				repaint();
 			}
 		});
