@@ -89,7 +89,7 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 
 		Menu simulationMenu = new Menu("Simulation");
 		MenuItem startSimulation = new MenuItem("Start");
-	    MenuItem fastStartSimulation = new MenuItem("Fast start X2");
+	    MenuItem fastStartSimulation = new MenuItem("Fast start");
 
 		simulationMenu.add(startSimulation);
 		simulationMenu.add(fastStartSimulation);
@@ -178,7 +178,19 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 			public void actionPerformed(ActionEvent arg0) {
 				setFruit(false);
 				setPacman(false);
-				startAlgo(arg0);
+				int speed = 500;
+				startAlgo(arg0 ,speed);
+			}
+		});
+		
+		/* Add action to start fast simulation button */
+		fastStartSimulation.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				setFruit(false);
+				setPacman(false);
+				int speed = 250;
+				startAlgo(arg0, speed);
 			}
 		});
 
@@ -239,13 +251,12 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 
 	}
 
-	private void startAlgo(ActionEvent e) {
+	private void startAlgo(ActionEvent e, int speed) {
 		ShortestPathAlgo algo = new ShortestPathAlgo(this.game);
 		this.algo = algo;
 		this.isPath = true;
 		this.currentTime = 0.1;
 		this.isSimulation = true;
-		int speed = 500;
 		PacNextStep thread = new PacNextStep(this,speed);
 		Thread t1 = new Thread(thread);
 		t1.start();
