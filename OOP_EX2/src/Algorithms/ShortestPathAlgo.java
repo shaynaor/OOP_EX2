@@ -71,7 +71,7 @@ public class ShortestPathAlgo {
 		int numOfPac = pacmans.size();
 		int numOfFru = fruits.size();
 		int numOfFruInPath = numOfFru / numOfPac;
-		int mod = 0, k = 0; // if there is a remainder add it to the first pacman
+		int mod = 0, k = 0 ; // if there is a remainder add it to the first pacman
 		if (numOfFru % numOfPac != 0) {
 			mod = numOfFru % numOfPac;
 		}
@@ -96,14 +96,13 @@ public class ShortestPathAlgo {
 				path.getPath().add(fruit);
 			}
 			/* If numOfFru % numOfPac have remainder */
-			for (int j = 0; j < mod && k < mod; j++) {
+			if (k < mod) {
 				k++;
 				fruit = fruitIt.next();
 				path.getPath().add(fruit);
 			}
 			/* If the path include only one pacman add him to the path. */
 			if (path.getPath().size() == 1) {
-				System.out.println("sdasdsad");
 				this.solution.getSolution().add(path);
 			}
 
