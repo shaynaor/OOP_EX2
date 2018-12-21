@@ -88,11 +88,11 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		menuBar.add(inputMenu);
 
 		Menu simulationMenu = new Menu("Simulation");
-		MenuItem startSimulation = new MenuItem("start");
-		// MenuItem fastStartSimulation = new MenuItem("fast start");
+		MenuItem startSimulation = new MenuItem("Start");
+	    MenuItem fastStartSimulation = new MenuItem("Fast start X2");
 
 		simulationMenu.add(startSimulation);
-		// simulationMenu.add(fastStartSimulation);
+		simulationMenu.add(fastStartSimulation);
 
 		menuBar.add(simulationMenu);
 
@@ -245,7 +245,8 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		this.isPath = true;
 		this.currentTime = 0.1;
 		this.isSimulation = true;
-		PacNextStep thread = new PacNextStep(this);
+		int speed = 500;
+		PacNextStep thread = new PacNextStep(this,speed);
 		Thread t1 = new Thread(thread);
 		t1.start();
 
