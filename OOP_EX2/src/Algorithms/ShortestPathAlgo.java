@@ -133,6 +133,7 @@ public class ShortestPathAlgo {
 		MyCoords convert = new MyCoords();
 		Fruit fruitMin = new Fruit(0, 0, 0);
 		double time = 0;
+		pac.getMetaData().setUTC(0);
 		ans.getPath().add(pac);
 		// ====== Find closest fruit to pacman , eat it , move pack man to the fruits
 		// position, repeat======
@@ -156,6 +157,7 @@ public class ShortestPathAlgo {
 			// =======Eating fruit adding to ans=======
 			time = time + (min / pac.getMetaData().getSpeedWeight());
 			((Fruit) (path.getPath().get(index))).eaten(time);
+			((Fruit) (path.getPath().get(index))).getMetaData().setUTC(time);
 			ans.getPath().add(fruitMin);
 			ans.addDistance(min);
 			// ==========Reseting values=======

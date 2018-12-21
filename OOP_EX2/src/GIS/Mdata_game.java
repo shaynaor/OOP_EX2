@@ -1,6 +1,7 @@
 package GIS;
 
 import java.text.ParseException;
+import java.util.Date;
 
 import Geom.Point3D;
 /**
@@ -14,6 +15,7 @@ public class Mdata_game implements Meta_data {
 	private int id;
 	private double speedWeight;
 	private double radius;
+	private long UTC;
 
 	/**
 	 * Constructor , receives a string.
@@ -24,6 +26,7 @@ public class Mdata_game implements Meta_data {
 	public Mdata_game(String[] meta) throws ParseException {
 		this.id = Integer.parseInt(meta[1]);
 		this.speedWeight = Double.parseDouble(meta[5]);
+		this.UTC = 0;
 		if (meta[0].contains("P")) {
 			this.radius = Double.parseDouble(meta[6]);
 		}
@@ -42,20 +45,20 @@ public class Mdata_game implements Meta_data {
 		
 	}
     
+
 	
-	//========Getters=========
-	@Override
-	public long getUTC() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void setUTC(double time) {
+		Long currTime = new Date().getTime();
+		currTime = currTime + ((long)time*1000);
+		this.UTC = currTime;
+	}
+	
+	public long getThisUTC() {
+		return this.UTC;
 	}
 
-	@Override
-	public Point3D get_Orientation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+	/*  Getters  */
 	public int getId() {
 		return id;
 	}
@@ -67,5 +70,14 @@ public class Mdata_game implements Meta_data {
 	public double getRadius() {
 		return radius;
 	} 
+		/*Not need to do */
+		public Point3D get_Orientation() {
+		return null;
+	}
+		@Override
+		public long getUTC() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 }
 

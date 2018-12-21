@@ -142,7 +142,7 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 				game.getPacmans().clear();
 				setPacman(false);
 				setFruit(false);
-				getNextPacman().clear();
+				isSimulation = false;
 				isPath = false;
 				repaint();
 			}
@@ -208,8 +208,9 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 			public void actionPerformed(ActionEvent arg0) {
 				setFruit(false);
 				setPacman(false);
-				saveToKML(arg0);
-
+				if(isSimulation) {
+					saveToKML(arg0);
+				}
 			}
 		});
 
@@ -399,7 +400,6 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 					g.drawLine(a.getX(), a.getY(), b.getX(), b.getY());
 				}
 			}
-			isSimulation = false;
 		}
 	}
 
