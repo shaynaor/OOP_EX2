@@ -24,6 +24,7 @@ import Algorithms.ShortestPathAlgo;
 import Coords.Convert_pixel_gps;
 import Coords.Range;
 import File_format.Game2CSV;
+import File_format.Solution2KML;
 import GIS.Fruit;
 import GIS.Game;
 import GIS.Pacman;
@@ -67,7 +68,7 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		MenuBar menuBar = new MenuBar();
 		Menu fileMenu = new Menu("File");
 		MenuItem loadFile = new MenuItem("Load");
-		MenuItem saveFile = new MenuItem("Save");
+		MenuItem saveFile = new MenuItem("Save to CSV");
 		MenuItem clearFile = new MenuItem("Clear");
 		MenuItem exitFile = new MenuItem("Exit");
 
@@ -90,9 +91,11 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		Menu simulationMenu = new Menu("Simulation");
 		MenuItem startSimulation = new MenuItem("Start");
 	    MenuItem fastStartSimulation = new MenuItem("Fast start");
+	    MenuItem saveToKML = new MenuItem("Save to KML");
 
 		simulationMenu.add(startSimulation);
 		simulationMenu.add(fastStartSimulation);
+		simulationMenu.add(saveToKML);
 
 		menuBar.add(simulationMenu);
 
@@ -193,6 +196,18 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 				startAlgo(arg0, speed);
 			}
 		});
+		
+		
+		/* Add action to save to KML simulation button */
+		saveToKML.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				setFruit(false);
+				setPacman(false);
+				saveToKML(arg0);
+				
+			}
+		});
 
 	}
 
@@ -246,9 +261,7 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 			} else {
 				Game2CSV creatGameCSV = new Game2CSV(this.game, f);
 			}
-
 		}
-
 	}
 
 	private void startAlgo(ActionEvent e, int speed) {
@@ -261,6 +274,26 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		Thread t1 = new Thread(thread);
 		t1.start();
 
+	}
+	
+	private void saveToKML (ActionEvent e) {
+		/* Open save file chooser */
+		JFileChooser chooser = new JFileChooser();
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		int result = chooser.showSaveDialog(this);
+
+		/* If the file path selected. */
+		if (result == chooser.APPROVE_OPTION) {
+			File f = chooser.getSelectedFile();
+			String filePath = f.getAbsolutePath();
+			/* Check if the file name end with ".kml" */
+			if (!filePath.endsWith(".kml")) {
+				f = new File(filePath + ".kml");
+				Solution2KML createKML = new Solution2KML(this.algo.getSolution(), f);
+			} else {
+				Solution2KML createKML = new Solution2KML(this.algo.getSolution(), f);
+			}
+		}
 	}
 
 	public void paint (Graphics g) {
