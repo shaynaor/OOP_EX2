@@ -39,13 +39,14 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 	private boolean isPacman;
 	private boolean isFruit;
 	private boolean isSimulation;
+	private boolean isThread;
 	private Map map;
 	private Vector<Pacman> nextPacman;
 	private double currentTime;
-
-	private boolean isPath; // added might need to delete later
-	private ShortestPathAlgo algo; // same
-
+	private int speed; 
+	private boolean isPath;
+	private ShortestPathAlgo algo; 
+	
 	public MyFrame() {
 		this.isPacman = false;
 		this.isFruit = false;
@@ -55,10 +56,10 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		this.isPath = false;
 		this.isSimulation = false;
 		this.nextPacman = new Vector<Pacman>();
-
+		this.isThread = false;
 		this.addMouseListener(this);
 	}
-	
+
 	public void run() {
 		initGUI();
 	}
@@ -90,8 +91,8 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 
 		Menu simulationMenu = new Menu("Simulation");
 		MenuItem startSimulation = new MenuItem("Start");
-	    MenuItem fastStartSimulation = new MenuItem("Fast start");
-	    MenuItem saveToKML = new MenuItem("Save to KML");
+		MenuItem fastStartSimulation = new MenuItem("Fast start");
+		MenuItem saveToKML = new MenuItem("Save to KML");
 
 		simulationMenu.add(startSimulation);
 		simulationMenu.add(fastStartSimulation);
@@ -181,23 +182,26 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 			public void actionPerformed(ActionEvent arg0) {
 				setFruit(false);
 				setPacman(false);
-				int speed = 500;
-				startAlgo(arg0 ,speed);
-			}
+				speed = 500;
+				if(isThread==false) {
+					startAlgo(arg0 );
+				}}
 		});
-		
+
 		/* Add action to start fast simulation button */
 		fastStartSimulation.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
 				setFruit(false);
 				setPacman(false);
-				int speed = 250;
-				startAlgo(arg0, speed);
+				speed = 250;
+				if(isThread==false) {
+					startAlgo(arg0);
+				}
 			}
 		});
-		
-		
+
+
 		/* Add action to save to KML simulation button */
 		saveToKML.addActionListener(new ActionListener() {
 
@@ -205,7 +209,7 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 				setFruit(false);
 				setPacman(false);
 				saveToKML(arg0);
-				
+
 			}
 		});
 
@@ -264,18 +268,19 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		}
 	}
 
-	private void startAlgo(ActionEvent e, int speed) {
+	private void startAlgo(ActionEvent e) {
 		ShortestPathAlgo algo = new ShortestPathAlgo(this.game);
 		this.algo = algo;
 		this.isPath = true;
 		this.currentTime = 0.1;
 		this.isSimulation = true;
-		PacNextStep thread = new PacNextStep(this,speed);
+		this.isThread = true;
+		PacNextStep thread = new PacNextStep(this);
 		Thread t1 = new Thread(thread);
 		t1.start();
 
 	}
-	
+
 	private void saveToKML (ActionEvent e) {
 		/* Open save file chooser */
 		JFileChooser chooser = new JFileChooser();
@@ -528,10 +533,16 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 	public ShortestPathAlgo getAlgo() {
 		return algo;
 	}
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
 
 
 
-	
 
 
 }

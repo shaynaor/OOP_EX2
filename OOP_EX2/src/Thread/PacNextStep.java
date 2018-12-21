@@ -16,11 +16,11 @@ import Gui.MyFrame;
 public class PacNextStep implements Runnable {
 
 	private MyFrame frame;
-    private int speed;
     
-	public PacNextStep(MyFrame frame, int speed) {
+    
+	public PacNextStep(MyFrame frame) {
 		this.frame = frame;
-		this.speed = speed;
+		
 	}
 
 	public void run() {
@@ -53,7 +53,7 @@ public class PacNextStep implements Runnable {
 			pathIt = frame.getAlgo().getSolution().getSolution().iterator();
 			currentTime += 0.5;        ///////////////////////////PLAYED WTH THIS TWO
 			try {
-				Thread.sleep(this.speed);   /////////////////////////////////////
+				Thread.sleep(this.frame.getSpeed());   /////////////////////////////////////
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
