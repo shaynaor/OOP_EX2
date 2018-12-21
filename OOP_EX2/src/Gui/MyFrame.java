@@ -152,6 +152,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		pacmanInput.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
+				isSimulation = false;
 				setPacman(true);
 				setFruit(false);
 			}
@@ -161,6 +162,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		fruitInput.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
+				isSimulation = false;
 				setFruit(true);
 				setPacman(false);
 			}
@@ -242,10 +244,9 @@ public class MyFrame extends JFrame implements MouseListener {
 		PacNextStep thread = new PacNextStep(this);
 		Thread t1 = new Thread(thread);
 		t1.start();
-		System.out.println("Time: " +algo.getSolution().getTime());
-		System.out.println("dist: " +algo.getSolution().getDistance());
-		
+
 		repaint();
+
 	}
 
 	public void paint(Graphics g) {
@@ -269,23 +270,20 @@ public class MyFrame extends JFrame implements MouseListener {
 				g.fillOval(x, y, r, r);
 			}
 		}
-		System.out.println(isSimulation);
 		if (isSimulation) {
-			
+
 			Iterator<Pacman> pacmanIt = this.getNextPacman().iterator();
-			System.out.println(this.getNextPacman().size());
 			while (pacmanIt.hasNext()) {
-				System.out.println("asdasdasfsdgfsdgfdgfd");
-				Pacman pac = pacmanIt.next();
-				System.out.println(pac.getGps());
-				Pixel pixel = new Pixel(0, 0);
-				pixel = convert.convertGPStoPixel(pac.getGps());
-				int r = 30;
-				int x = pixel.getX() - (r / 2);
-				int y = pixel.getY() - (r / 2);
-				g.setColor(Color.yellow);
-				g.fillOval(x, y, r, r);
+					Pacman pac = pacmanIt.next();
+					Pixel pixel = new Pixel(0, 0);
+					pixel = convert.convertGPStoPixel(pac.getGps());
+					int r = 30;
+					int x = pixel.getX() - (r / 2);
+					int y = pixel.getY() - (r / 2);
+					g.setColor(Color.yellow);
+					g.fillOval(x, y, r, r);
 			}
+			isSimulation = false;
 		}
 
 		/* Draw fruits */
@@ -447,6 +445,7 @@ public class MyFrame extends JFrame implements MouseListener {
 
 	public void setNextPacman(ArrayList<Pacman> nextPacman) {
 		this.nextPacman = nextPacman;
+		isSimulation = true;
 		repaint();
 	}
 
