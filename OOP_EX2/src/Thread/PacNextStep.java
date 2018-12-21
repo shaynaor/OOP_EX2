@@ -64,7 +64,7 @@ public class PacNextStep implements Runnable {
 	public Fruit[] findBounds(double time, Path path) {
 		Fruit[] fruitsArr = new Fruit[2];
 		/* Check if the time is not above the path time. */
-		if (time > path.finalTime()) {
+		if (time > path.finalTime() && !(path.getPath().size() == 1)) {
 			fruitsArr[0] =(Fruit)path.getPath().get(path.getPath().size()-1);
 			fruitsArr[1] =(Fruit)path.getPath().get(path.getPath().size()-1);
 			return fruitsArr;

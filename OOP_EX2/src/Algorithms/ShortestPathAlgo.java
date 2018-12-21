@@ -12,9 +12,11 @@ import GIS.Pacman;
 import GIS.Path;
 import GIS.Solution;
 import Geom.Point3D;
+
 /**
- * This class receives a game and finds a path for each Pacman ,such as
- * each fruit is eaten in the end of the game.
+ * This class receives a game and finds a path for each Pacman ,such as each
+ * fruit is eaten in the end of the game.
+ * 
  * @author Alex vaisman , Shay naor.
  */
 public class ShortestPathAlgo {
@@ -24,20 +26,19 @@ public class ShortestPathAlgo {
 	private final ComperByDistPacman distCmpPac = new ComperByDistPacman();
 
 	/**
-	 * This function is the Constructor.
-	 * it calls algo function.
+	 * This function is the Constructor. it calls algo function.
+	 * 
 	 * @param game
 	 */
 	public ShortestPathAlgo(Game game) {
 		this.game = game;
 		this.solution = new Solution();
-		/* findPath() ; full search algo */
 		algo();
 	}
 
 	/**
-	 * This function checks if the input is valid.
-	 * if we receive 0 pacman or 0 fruits there is no calculation to be done.
+	 * This function checks if the input is valid. if we receive 0 pacman or 0
+	 * fruits there is no calculation to be done.
 	 * 
 	 */
 	private void algo() {
@@ -48,11 +49,12 @@ public class ShortestPathAlgo {
 	}
 
 	/**
-	 * This function finds the distance of all pacmans and fruits from the top left corner of the game.
-	 * it will sort the packmans and the fruits according to that distance.
-	 * then the function depending on how much fruits there are will assign each packman what fruits
-	 * he will have to eat and create a path.
-	 * then the function will send the path to pathAlgo which will find the shortest route given the path.
+	 * This function finds the distance of all pacmans and fruits from the top left
+	 * corner of the game. it will sort the packmans and the fruits according to
+	 * that distance. then the function depending on how much fruits there are will
+	 * assign each packman what fruits he will have to eat and create a path. then
+	 * the function will send the path to pathAlgo which will find the shortest
+	 * route given the path.
 	 */
 	private void startAlgo() {
 
@@ -69,8 +71,8 @@ public class ShortestPathAlgo {
 		int numOfPac = pacmans.size();
 		int numOfFru = fruits.size();
 		int numOfFruInPath = numOfFru / numOfPac;
-		int mod=0 , k=0;     // if there is a remainder add it to the first pacman
-		if(numOfFru % numOfPac != 0) {
+		int mod = 0, k = 0; // if there is a remainder add it to the first pacman
+		if (numOfFru % numOfPac != 0) {
 			mod = numOfFru % numOfPac;
 		}
 
@@ -84,37 +86,45 @@ public class ShortestPathAlgo {
 		Pacman pac = new Pacman(0, 0, 0);
 		Fruit fruit = new Fruit(0, 0, 0);
 
-		while (pacIt.hasNext() && fruitIt.hasNext()) {
+		while (pacIt.hasNext()) {
 			pac = pacIt.next();
 			Path path = new Path();
 			path.getPath().add(pac);
 			int startWith = 0;
-			for (int i = startWith; i < numOfFruInPath ; i++) {
+			for (int i = startWith; i < numOfFruInPath; i++) {
 				fruit = fruitIt.next();
 				path.getPath().add(fruit);
 			}
-			for(int j = 0 ; j < mod && k<mod ; j++) {
+			/* If numOfFru % numOfPac have remainder */
+			for (int j = 0; j < mod && k < mod; j++) {
 				k++;
 				fruit = fruitIt.next();
 				path.getPath().add(fruit);
 			}
-				
+			/* If the path include only one pacman add him to the path. */
+			if (path.getPath().size() == 1) {
+				System.out.println("sdasdsad");
+				this.solution.getSolution().add(path);
+			}
+
 			pathAlgo(path);
 			startWith += numOfFruInPath;
 		}
 
 	}
+
 	/**
 	 * This function will receive a path containing one pacman and several fruits.
 	 * it will find the shortest path for the pacman to go between the fruits.
+	 * 
 	 * @param path , the path the function receives.
 	 */
 	private void pathAlgo(Path path) {
-		Path ans =  new Path();
+		Path ans = new Path();
 		double min = Double.MAX_VALUE;
-		Pacman pac =  new Pacman(0,0,0);
+		Pacman pac = new Pacman(0, 0, 0);
 		Fruit fruit = new Fruit(0, 0, 0);
-		pac = (Pacman)path.getPath().get(0);
+		pac = (Pacman) path.getPath().get(0);
 		Iterator<GIS_element> itFruit = path.getPath().iterator();
 		itFruit.next();
 		int index = 1;
@@ -127,14 +137,15 @@ public class ShortestPathAlgo {
 		ans.getPath().add(pac);
 		// ====== Find closest fruit to pacman , eat it , move pack man to the fruits
 		// position, repeat======
-		for(int i = 1;i<path.getPath().size();i++) {
-			while(itFruit.hasNext()) {
-				fruit = (Fruit)itFruit.next();
+		for (int i = 1; i < path.getPath().size(); i++) {
+			while (itFruit.hasNext()) {
+				fruit = (Fruit) itFruit.next();
 				iteratorIndex++;
 				distance = convert.distance3d(CurrentPoint, fruit.getGps());
 
-				// =======If fruit is not eaten find the closest fruit to the current position==========
-				if (((Fruit)(path.getPath().get(iteratorIndex))).getEaten() == false) {
+				// =======If fruit is not eaten find the closest fruit to the current
+				// position==========
+				if (((Fruit) (path.getPath().get(iteratorIndex))).getEaten() == false) {
 					if (distance < min) {
 						fruitMin = fruit;
 						min = distance;
@@ -145,7 +156,7 @@ public class ShortestPathAlgo {
 			}
 			// =======Eating fruit adding to ans=======
 			time = time + (min / pac.getMetaData().getSpeedWeight());
-			((Fruit)(path.getPath().get(index))).eaten(time);
+			((Fruit) (path.getPath().get(index))).eaten(time);
 			ans.getPath().add(fruitMin);
 			ans.addDistance(min);
 			// ==========Reseting values=======
@@ -159,8 +170,6 @@ public class ShortestPathAlgo {
 		}
 		this.solution.getSolution().add(ans);
 	}
-
-
 
 	public Solution getSolution() {
 		return solution;
