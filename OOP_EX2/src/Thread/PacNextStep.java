@@ -37,8 +37,9 @@ public class PacNextStep implements Runnable {
 			while (pathIt.hasNext()) {
 				path = pathIt.next();
 				fruits = findBounds(currentTime, path);
-				if (fruits == null) {
-					/* Do nothing */
+				if (fruits[0].getTimeEaten()==-50) {
+					Pacman pac = new Pacman(fruits[0].getGps().x(), fruits[0].getGps().y(), 0);
+					pacmans.add(pac);
 				}else if(fruits[0].getTimeEaten() == fruits[1].getTimeEaten() ) {
 					Pacman pac = new Pacman(fruits[0].getGps().x(), fruits[0].getGps().y(), 0);
 					pacmans.add(pac);
@@ -70,7 +71,12 @@ public class PacNextStep implements Runnable {
 		}
 		/* If the path contains only one pacman */
 		if (path.getPath().size() == 1) {
-			return null;
+			Pacman temp = new Pacman(((Pacman)(path.getPath().get(0))).getGps().x(),((Pacman)(path.getPath().get(0))).getGps().y(),0);
+		    Fruit ftemp =  new Fruit(temp.getGps().x(),temp.getGps().y(),0);
+		    ftemp.eaten(-50);
+		    fruitsArr[0] =ftemp;
+			fruitsArr[1] =ftemp;
+			return fruitsArr;
 		}
 		Iterator<GIS_element> gisIt = path.getPath().iterator();
 		Pacman pac = (Pacman) gisIt.next();
