@@ -49,7 +49,7 @@ public class PacNextStep implements Runnable {
 			}
 			this.frame.setNextPacman(pacmans);
 			pathIt = frame.getAlgo().getSolution().getSolution().iterator();
-			currentTime += 0.1;        ///////////////////////////PLAYED WTH THIS TWO
+			currentTime += 0.5;        ///////////////////////////PLAYED WTH THIS TWO
 			try {
 				Thread.sleep(100);   /////////////////////////////////////
 			} catch (InterruptedException e) {
