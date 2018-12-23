@@ -14,7 +14,12 @@ import GIS.GIS_element;
 import GIS.Pacman;
 import GIS.Path;
 import GIS.Solution;
-
+/**
+ * This class receives a solution and converts it to a kml file for google earth.
+ * the kml file will have a time slider so it will be possible to see which points disappear first.
+ * @author Alex vaisman, Shay naor
+ *
+ */
 public class Solution2KML {
 	private Solution solution;
 
@@ -23,6 +28,13 @@ public class Solution2KML {
 		createKMLSol(path);
 	}
 
+	/**
+	 * This function receives  a path where to save the kml file.
+	 * it goes over each fruit and packman and adds the time the fruit was eaten to the current time.
+	 * it writes the kml file in such a way that when you run it in google earth
+	 * you can see using the time slider when each fruit was eaten. 
+	 * @param path
+	 */
 	private void createKMLSol(File path) {
 		PrintWriter pw = null;
 		FileWriter fw = null;
