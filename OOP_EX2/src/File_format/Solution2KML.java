@@ -70,7 +70,6 @@ public class Solution2KML {
 			String timePac = strUTCPac.substring(0, 10);
 			String datePac = strUTCPac.substring(11,strUTCPac.length());
 			strUTCPac = timePac + "T"+datePac+"Z";
-			System.out.println(strUTCPac);
 			sb.append("<Folder><name>Pacman number: " + pacTemp.getMetaData().getId() + "</name>\n");
 			sb.append("<Placemark>\n");
 			sb.append("<TimeStamp>\n");
@@ -122,5 +121,7 @@ public class Solution2KML {
 		Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(date);
 	}
+	
+	
 
 }
