@@ -39,6 +39,20 @@ after that MyFrame will have a pixel location for pacman or fruit and then it ca
 now after you loaded a file and can see the pacmans and fruits on the map you will want to start a simulation and see
 how they move on the map and eat all the fruits.
  
+When you start a simulation , MyFrame will send the Game object which contains all the fruits and pacmans to ShortestPathAlgo class.
+This class using the algorithm writen above , will creat paths for pacmans to eat all the fruits.
+Each path has one pacman and all the fruits he has to eat in order that the algorithm decided on.
+All the pathes will be added to a Solution which is an arraylist of paths.
+MyFrame will receive a solution from ShortestPathAlgo and creat a Thread which will find the next location of the pacmans,
+so movement of pacmans can be shown in the gui.
+
+The class of the thread is called PacNextStep , and it will creat a Vector of pacmans which will contain the next location
+of each pacman. the thread will run from 0 to the time of the longest path in seconds.
+Each time the thread will find all the next locations of pacmans it will call RePaint in MyFrame so MyFrame will paint the 
+new position of pacmans.
+After that the thread will sleep for a certain time.
+The time the thread sleeps depends on which simulation you choose , the normal one which runs in real time.
+Or the fast one which runs in double speed.
 
 
 
