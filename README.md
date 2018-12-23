@@ -54,6 +54,17 @@ After that the thread will sleep for a certain time.
 The time the thread sleeps depends on which simulation you choose , the normal one which runs in real time.
 Or the fast one which runs in double speed.
 
+You have two option to save a game in this program.
+one is to save it into a csv file .
+MyFrame will send the Game to Game2CSV which will run on the array list of pacmans and fruits and will write them as a csv file
+containing all the pacmans and fruits in the game.
+
+The second option is after you ran the simulaton, you can save the Solution into a kml file.
+MyFrame will send the Solution to Solution2KML , which will write each fruit in such a way that when the kml file ran
+in google earth you will see a timeslider , moving the slider the fruits will appear and disappear depending on the time 
+when they were eaten.
+When creating the kml file Solution2KML will take the current time of your pc and add to each fruit the current time plus
+the time at which the fruit was eaten.
 
 
 
