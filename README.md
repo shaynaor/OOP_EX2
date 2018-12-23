@@ -18,7 +18,8 @@ You can download the Ariel1.png from the project window in github.
 
 # The algorithm used.
 First the program finds how many fruits it has , then the program  will sort the fruits by their distance from the top left corner
-of the map. after that the program will give each pacman a list of fruits sorted by distance from the top left corner he should eat.
+of the map. It will also sort the pacmans in the same way. 
+After that the program will give each pacman a list of fruits sorted by distance from the top left corner he should eat.
 Then each pacman will sort the list given to him.
 He will find the first fruit closest to him and eat it and go to that fruits location.
 Then he will find the second fruit closest to him and eat it and go to that fruits location.
