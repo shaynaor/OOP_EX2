@@ -23,8 +23,21 @@ He will find the first fruit closest to him and eat it and go to that fruits loc
 Then he will find the second fruit closest to him and eat it and go to that fruits location.
 He will continue until all the fruits in his list are eaten.
 
+# The structure of the program.
+When you run the program it will creat a gui with all the option you can choose from on the top left side of the gui.
+The creation of the gui and all the options given to you are managed by MyFrame class.
+If you load a csv file MyFrame will send the path of that file to Game class which will read the file line by line,
+And will create a new object fruit or pacman depending on what is writen in the csv file.
+The game class has two arraylist in it, one for pacmans and one for fruits.
+After creating an object from the csv file it will add it to the correct array list depending on the type of the object.
+After game finished reading the file , MyFrame will paint the fruits and pacmans on the map.
+To paint them on the map MyFrame will have to convert the gps position of pacmans and fruits to a pixel position depending
+on the size of the gui.
+MyFrame will call Convert_pixel_gps class which converts a gps location to a pixel location and the other way around.
+after that MyFrame will have a pixel location for pacman or fruit and then it can paint it on the map.
 
- 
+now after you loaded a file and can see the pacmans and fruits on the map you will want to start a simulation and see
+how they move on the map and eat all the fruits.
  
 
 
