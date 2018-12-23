@@ -12,6 +12,9 @@ public class Main {
 		win.setSize(win.getMyImage().getWidth(), win.getMyImage().getHeight());
 		win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		
+		
+
 	}
 
 }
