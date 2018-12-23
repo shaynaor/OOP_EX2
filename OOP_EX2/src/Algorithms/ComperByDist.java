@@ -6,7 +6,11 @@ import Coords.MyCoords;
 import GIS.Fruit;
 import GIS.GIS_element;
 import Geom.Point3D;
-
+/**
+ * This class is part of the algorithm and it compers the points 
+ * by their distance from top left croner of the map. 
+ * @author Alex vaisman, shay naro
+ */
 public class ComperByDist implements Comparator<Fruit> {
 
 	MyCoords coord = new MyCoords();
