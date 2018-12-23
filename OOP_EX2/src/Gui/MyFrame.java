@@ -43,9 +43,12 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 	private Map map;
 	private Vector<Pacman> nextPacman;
 	private double currentTime;
+
+
 	private int speed; 
 	private boolean isPath;
 	private ShortestPathAlgo algo; 
+	private boolean isKill;
 	
 	public MyFrame() {
 		this.isPacman = false;
@@ -58,6 +61,7 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		this.nextPacman = new Vector<Pacman>();
 		this.isThread = false;
 		this.addMouseListener(this);
+		this.isKill = false;
 	}
 
 	public void run() {
@@ -143,6 +147,9 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 				setPacman(false);
 				setFruit(false);
 				isSimulation = false;
+				isPath = false;
+				isKill = true;
+				isThread = false;
 				isPath = false;
 				repaint();
 			}
@@ -276,6 +283,7 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		this.currentTime = 0.1;
 		this.isSimulation = true;
 		this.isThread = true;
+		this.isKill = false;
 		PacNextStep thread = new PacNextStep(this);
 		Thread t1 = new Thread(thread);
 		t1.start();
@@ -540,6 +548,13 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+	public boolean isKill() {
+		return isKill;
+	}
+
+	public void setKill(boolean isKill) {
+		this.isKill = isKill;
 	}
 
 

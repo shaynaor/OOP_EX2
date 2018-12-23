@@ -16,11 +16,11 @@ import Gui.MyFrame;
 public class PacNextStep implements Runnable {
 
 	private MyFrame frame;
-    
-    
+
+
 	public PacNextStep(MyFrame frame) {
 		this.frame = frame;
-		
+
 	}
 
 	public void run() {
@@ -31,7 +31,15 @@ public class PacNextStep implements Runnable {
 		Range range = new Range();
 		Vector<Pacman> pacmans = new Vector<Pacman>();
 		Point3D point = new Point3D(0, 0, 0);
+       
+
+
 		while (currentTime <= endTime) {
+			if(this.frame.isKill()==true) {// this kills the thread 
+				currentTime = endTime + 50;
+				break;
+			}
+
 			pacmans.clear();
 			Iterator<Path> pathIt = frame.getAlgo().getSolution().getSolution().iterator();
 			while (pathIt.hasNext()) {
@@ -63,24 +71,24 @@ public class PacNextStep implements Runnable {
 
 	public Fruit[] findBounds(double time, Path path) {
 		Fruit[] fruitsArr = new Fruit[2];
-		
+
 		/* If the path contains only one pacman */
 		if (path.getPath().size() == 1) {
 			Pacman temp = new Pacman(((Pacman)(path.getPath().get(0))).getGps().x(),((Pacman)(path.getPath().get(0))).getGps().y(),0);
-		    Fruit ftemp =  new Fruit(temp.getGps().x(),temp.getGps().y(),0);
-		    ftemp.eaten(-50);
-		    fruitsArr[0] =ftemp;
+			Fruit ftemp =  new Fruit(temp.getGps().x(),temp.getGps().y(),0);
+			ftemp.eaten(-50);
+			fruitsArr[0] =ftemp;
 			fruitsArr[1] =ftemp;
 			return fruitsArr;
 		}
-		
+
 		/* Check if the time is not above the path time. */
 		if (time > path.finalTime()) {
 			fruitsArr[0] =(Fruit)path.getPath().get(path.getPath().size()-1);
 			fruitsArr[1] =(Fruit)path.getPath().get(path.getPath().size()-1);
 			return fruitsArr;
 		}
-		
+
 		Iterator<GIS_element> gisIt = path.getPath().iterator();
 		Pacman pac = (Pacman) gisIt.next();
 		Fruit fruitPac = new Fruit(pac.getGps().x(), pac.getGps().y(), 0);
