@@ -279,6 +279,7 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		PacNextStep thread = new PacNextStep(this);
 		Thread t1 = new Thread(thread);
 		t1.start();
+		System.out.println("Time to eat all fruits: "+algo.getSolution().getTime());
 
 	}
 

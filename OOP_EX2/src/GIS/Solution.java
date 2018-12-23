@@ -24,19 +24,16 @@ public class Solution {
 		this.score = 0;
 	}
 
-            
-	
-	
-	
-	
-	
-	
+
 	/* Getters */
 	public ArrayList<Path> getSolution() {
 		return solution;
 	}
 
-
+/**
+ * returns the time of the longest path
+ * @return the time of the longest path
+ */
 	public double getTime() {
 		double time = 0;
 		
