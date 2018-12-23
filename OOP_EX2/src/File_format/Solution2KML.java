@@ -117,7 +117,7 @@ public class Solution2KML {
 	 * @param time  time in long.
 	 * @return current time in string.
 	 */
-	public static String convertTime(long time) {
+	private static String convertTime(long time) {
 		Date date = new Date(time);
 		Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(date);

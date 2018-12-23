@@ -12,9 +12,9 @@ public class Solution {
 
 	
 	private ArrayList<Path> solution;
-	double time;
-	double distance;
-	double score;
+	private double time;
+	private double distance;
+	private double score;
 	
 	
 	public Solution() {

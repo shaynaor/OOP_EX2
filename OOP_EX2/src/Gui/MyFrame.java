@@ -49,8 +49,6 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 	private Map map;
 	private Vector<Pacman> nextPacman;
 	private double currentTime;
-
-
 	private int speed; 
 	private boolean isPath;
 	private ShortestPathAlgo algo; 
@@ -478,29 +476,6 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		return null;
 	}
 
-	public BufferedImage getMyImage() {
-		return myImage;
-	}
-
-	public Game getGame() {
-		return this.game;
-	}
-
-	public boolean isPacman() {
-		return isPacman;
-	}
-
-	public boolean isFruit() {
-		return isFruit;
-	}
-
-	public void setFruit(boolean isFruit) {
-		this.isFruit = isFruit;
-	}
-
-	public void setPacman(boolean isPacman) {
-		this.isPacman = isPacman;
-	}
 /**
  * this function will paint pacman or fruit on the map
  * depending on what the user choose in the menu.
@@ -591,7 +566,29 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		this.isKill = isKill;
 	}
 
+	public BufferedImage getMyImage() {
+		return myImage;
+	}
 
+	public Game getGame() {
+		return this.game;
+	}
+
+	public boolean isPacman() {
+		return isPacman;
+	}
+
+	public boolean isFruit() {
+		return isFruit;
+	}
+
+	public void setFruit(boolean isFruit) {
+		this.isFruit = isFruit;
+	}
+
+	public void setPacman(boolean isPacman) {
+		this.isPacman = isPacman;
+	}
 
 
 
