@@ -32,7 +32,13 @@ import GIS.Path;
 import Geom.Pixel;
 import Geom.Point3D;
 import Thread.PacNextStep;
-
+/**
+ * This class is the main class of the program.
+ * it will create the gui with all the option written in the slider menu on the top left.
+ * depending on what the user chooses in the gui the class will start a function . 
+ * @author Alex vaisman, Shay naor
+ *
+ */
 public class MyFrame extends JFrame implements MouseListener, Runnable {
 	private BufferedImage myImage;
 	private Game game;
@@ -49,7 +55,8 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 	private boolean isPath;
 	private ShortestPathAlgo algo; 
 	private boolean isKill;
-	
+
+
 	public MyFrame() {
 		this.isPacman = false;
 		this.isFruit = false;
@@ -67,7 +74,11 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 	public void run() {
 		initGUI();
 	}
-
+	/**
+	 * This function creates all the menu bars and options in the gui.
+	 * It also has in it functions which listen to which option was selected.
+	 * If and option was selected the corresponding function will start.
+	 */
 	private void initGUI() {
 		/* Create the menu bar. */
 		MenuBar menuBar = new MenuBar();
@@ -223,7 +234,10 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 
 	}
 
-	/* Load */
+	/**
+	 * This function loads a csv file and creates a new game.
+	 * @param e , the actionEvent which calls this function
+	 */
 	private void ChooseButtonLoadFile(ActionEvent e) {
 		/* Open load file chooser */
 		JFileChooser openFile = new JFileChooser();
@@ -248,12 +262,9 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 
 	}
 
-	/* save Button */
-	/*
-	 * https://stackoverflow.com/questions/10471396/appending-the-file-type-to-a-
-	 * file-in-java-using-jfilechooser
-	 * https://stackoverflow.com/questions/13905298/how-to-save-a-txt-file-using-
-	 * jfilechooser
+	/**
+	 * This function saves a game into a csv file.
+	 * @param e , the ActionEven that calls this function.
 	 */
 	private void ChooseButtonSaveFile(ActionEvent e) {
 
@@ -276,6 +287,12 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		}
 	}
 
+	
+	/**
+	 * This function finds an algo which contains a solution to the game.
+	 * it will create a thread which will find the next location for all the pacmans on their path.
+	 * @param e, the ActionEven that calls this function.
+	 */
 	private void startAlgo(ActionEvent e) {
 		ShortestPathAlgo algo = new ShortestPathAlgo(this.game);
 		this.algo = algo;
@@ -290,7 +307,10 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		System.out.println("Time to eat all fruits: "+algo.getSolution().getTime());
 
 	}
-
+ /**
+  * This function creates a kml file from solution.
+  * @param , the ActionEven that calls this function.
+  */
 	private void saveToKML (ActionEvent e) {
 		/* Open save file chooser */
 		JFileChooser chooser = new JFileChooser();
@@ -311,6 +331,10 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		}
 	}
 
+	/**
+	 * This function will pain the fruits and pacmans on the map.
+	 * Depending on if the gui running a simulation or not.
+	 */
 	public void paint (Graphics g) {
 		g.drawImage(this.myImage, -9, -9, this.getWidth(), this.getHeight(), this);
 
@@ -412,6 +436,13 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 		}
 	}
 
+	
+	/**
+	 * This function returns a color from 10 different colors.
+	 * Depending on what positive in it received.
+	 * @param i , a number this function receives.
+	 * @return a color.
+	 */
 	private Color randomColor(int i) {
 		i = i % 10;
 		if (i == 0) {
@@ -470,7 +501,10 @@ public class MyFrame extends JFrame implements MouseListener, Runnable {
 	public void setPacman(boolean isPacman) {
 		this.isPacman = isPacman;
 	}
-
+/**
+ * this function will paint pacman or fruit on the map
+ * depending on what the user choose in the menu.
+ */
 	public void mouseClicked(MouseEvent e) {
 		/* If want to add pacmans */
 		if (isPacman) {
