@@ -14,7 +14,7 @@ and an option to save the game into a kml file so you can run it in google earth
 # How to use:
 Inside the Gui package there is a map class , you need to manualy put in line 31 the location of your Ariel1.png .
 Inside the Gui package there is a main class, run it to start the program. 
-Youu can download the Ariel1.png from the project window in github. 
+You can download the Ariel1.png from the project window in github. 
 
 # The algorithm used.
 First the program finds how many fruits it has , then the program  will sort the fruits by their distance from the top left corner
